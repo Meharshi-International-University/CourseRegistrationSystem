@@ -23,15 +23,24 @@ public class RegistrationRequestController {
     @PostMapping()
     public ResponseEntity<?> saveRegistrationRequest(@RequestBody RegistrationRequestDto registrationRequest){
     log.info("Inside saveRegistrationRequest method of RegistrationRequestController");
-        registrationRequestService.saveRegistrationRequest(registrationRequest);
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        try {
+            registrationRequestService.saveRegistrationRequest(registrationRequest);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+       return new ResponseEntity<>(HttpStatus.ACCEPTED);
 
     }
 
     @PutMapping("{id}")
     public ResponseEntity<?> updateRegistrationRequest(@PathVariable("id") Long id,@RequestBody RegistrationRequestDto registrationRequest){
         log.info("Inside updateRegistrationRequest method of RegistrationRequestController");
-        registrationRequestService.updateRegistrationRequest(id,registrationRequest);
+
+        try {
+            registrationRequestService.updateRegistrationRequest(id,registrationRequest);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
 
     }

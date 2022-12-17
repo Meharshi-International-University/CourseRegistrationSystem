@@ -42,19 +42,22 @@ public class RegistrationRequestServiceImpl implements RegistrationRequestServic
         CourseOffering oCourseOffering = new CourseOffering();
 
         RegistrationRequest oRegistrationRequest = registrationRequestRepository.findById(id).orElseThrow(() ->
-          new RuntimeException("Registration Request By Id "));
+          new RuntimeException("Registration Request Not Found "));
+
+        registrationRequestRepository.save(oRegistrationRequest);
         return null;
     }
 
     @Override
     public void deleteRegistrationRequest(Long id) {
         log.info("Inside  deleteRegistrationRequest method of RegistrationServiceImpl");
+        registrationRequestRepository.deleteById(id);
     }
 
     @Override
     public RegistrationRequest getRegistrationRequest(Long id) {
         log.info("Inside  getRegistrationRequest method of RegistrationServiceImpl");
-        return null;
+        return registrationRequestRepository.findById(id).orElseThrow(()->new RuntimeException("Registration Request Not Found"));
     }
 
 
