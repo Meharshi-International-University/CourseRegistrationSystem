@@ -14,9 +14,11 @@ public class Registration {
     private Long registrationId;
 
     @ManyToOne
+    @JoinColumn(name = "studentId")
     private Student student;
 
     @ManyToOne
+    @JoinColumn(name = "courseOfferingId")
     private CourseOffering CourseOffering;
 
     public Registration() {

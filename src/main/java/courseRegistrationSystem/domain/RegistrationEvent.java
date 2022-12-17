@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -18,7 +19,8 @@ public class RegistrationEvent {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     @ManyToMany
-    private List<RegistrationGroup> registrationGroups;
+    @JoinTable
+    private List<RegistrationGroup> registrationGroups =new ArrayList<>();
     @Enumerated
     private RegistrationEventStatus registrationEventStatus;
 
