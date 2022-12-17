@@ -2,8 +2,6 @@ package courseRegistrationSystem.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-
-
 @Getter
 @Setter
 @Entity
@@ -14,8 +12,12 @@ public class Student {
     private String studentId;
     private String name;
     private String email;
+    @OneToOne
+    private Address mailAddress;
+    @OneToOne
+    private Address homeAddress;
 
-    public Student(String studentId, String name, String email, Address mailAddress, Address homeAddress) {
+    public Student(String studentId, String name, String email) {
         this.studentId = studentId;
         this.name = name;
         this.email = email;
@@ -25,27 +27,5 @@ public class Student {
 
     public Student() {
     }
-
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "street", column = @Column(name = "mailingStreet")),
-            @AttributeOverride(name = "city", column = @Column(name = "mailingCity")),
-            @AttributeOverride(name = "state", column = @Column(name = "mailingState")),
-            @AttributeOverride(name = "countryRegion", column = @Column(name = "mailingCountryRegion")),
-            @AttributeOverride(name = "postalCode", column = @Column(name = "mailingPostalCode"))
-
-    })
-    private Address mailAddress;
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "street", column = @Column(name = "homeStreet")),
-            @AttributeOverride(name = "city", column = @Column(name = "homeCity")),
-            @AttributeOverride(name = "state", column = @Column(name = "homeState")),
-            @AttributeOverride(name = "countryRegion", column = @Column(name = "homeCountyRegion")),
-            @AttributeOverride(name = "postalCode", column = @Column(name = "homePostalCode"))
-    })
-    private Address homeAddress;
-
-
 
 }
