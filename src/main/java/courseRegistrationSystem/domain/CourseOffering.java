@@ -37,4 +37,6 @@ public class CourseOffering {
         this.course = course;
         this.academicBlock = academicBlock;
     }
+
+
 }

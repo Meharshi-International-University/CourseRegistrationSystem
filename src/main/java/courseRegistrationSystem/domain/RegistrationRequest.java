@@ -33,4 +33,5 @@ public class RegistrationRequest {
         this.student = student;
         this.courseOffering = courseOffering;
     }
+
 }
