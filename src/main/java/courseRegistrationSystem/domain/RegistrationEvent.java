@@ -4,6 +4,7 @@ import courseRegistrationSystem.enums.RegistrationEventStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@ToString
 public class RegistrationEvent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
