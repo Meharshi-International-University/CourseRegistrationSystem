@@ -24,12 +24,12 @@ public class CourseOffering {
     @JoinColumn(name = "courseOffering_id")
     @OrderColumn(name="sequence")
     private List<Faculty> faculties=new ArrayList<>();
-    @OneToMany
-    @JoinColumn(name = "courseOffering_id")
+    @OneToMany(mappedBy = "courseOffering")
     @OrderColumn(name="sequence")
     private List<Registration> registrations= new ArrayList<>();
-    @OneToMany
-    @JoinColumn(name = "courseOffering_id")
+
+    @OneToMany(mappedBy = "courseOffering")
+
     @OrderColumn(name="sequence")
     private List<RegistrationRequest> registrationRequests= new ArrayList<>();
     @OneToOne

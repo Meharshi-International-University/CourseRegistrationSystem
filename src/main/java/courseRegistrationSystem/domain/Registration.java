@@ -18,15 +18,15 @@ public class Registration {
     private Student student;
 
     @ManyToOne
-    @JoinColumn(name = "courseOfferingId")
-    private CourseOffering CourseOffering;
+    @JoinColumn(name = "reg_courseOfferingId")
+    private CourseOffering courseOffering;
 
     public Registration() {
 
     }
 
-    public Registration( Student student, courseRegistrationSystem.domain.CourseOffering courseOffering) {
+    public Registration( Student student, CourseOffering courseOffering) {
         this.student = student;
-        CourseOffering = courseOffering;
+        this.courseOffering = courseOffering;
     }
 }

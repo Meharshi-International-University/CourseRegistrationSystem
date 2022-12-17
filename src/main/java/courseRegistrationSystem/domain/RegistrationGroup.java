@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,9 +16,13 @@ public class RegistrationGroup {
     private Long registrationGroupId;
 
     @OneToMany
-    private List<Student> students;
+    @JoinColumn(name = "RegistrationGroupId")
+    @OrderColumn(name="sequence")
+    private List<Student> students= new ArrayList<>();
     @OneToMany
-    private List<AcademicBlock> academicBlocks;
+    @JoinColumn(name = "RegistrationGroupId")
+    @OrderColumn(name="sequence")
+    private List<AcademicBlock> academicBlocks= new ArrayList<>();
 
     public RegistrationGroup() {
     }
