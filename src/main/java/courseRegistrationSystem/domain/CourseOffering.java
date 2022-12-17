@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,9 +21,17 @@ public class CourseOffering {
     @OneToOne
     private Course course;
     @OneToMany
-    private List<Faculty> faculties;
+    @JoinColumn(name = "courseOffering_id")
+    @OrderColumn(name="sequence")
+    private List<Faculty> faculties=new ArrayList<>();
     @OneToMany
-    private List<Registration> registrations;
+    @JoinColumn(name = "courseOffering_id")
+    @OrderColumn(name="sequence")
+    private List<Registration> registrations= new ArrayList<>();
+    @OneToMany
+    @JoinColumn(name = "courseOffering_id")
+    @OrderColumn(name="sequence")
+    private List<RegistrationRequest> registrationRequests= new ArrayList<>();
     @OneToOne
     private AcademicBlock academicBlock;
 
