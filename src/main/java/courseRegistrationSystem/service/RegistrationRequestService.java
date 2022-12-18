@@ -3,10 +3,12 @@ package courseRegistrationSystem.service;
 import courseRegistrationSystem.domain.RegistrationRequest;
 import courseRegistrationSystem.dto.RegistrationRequestDTO;
 
+import java.util.List;
+
 
 public interface RegistrationRequestService {
 
-    public void saveRegistrationRequest(RegistrationRequestDTO registrationRequestDto);
+    void saveRegistrationRequests(String studentId,List<RegistrationRequestDTO> registrationRequestDtos);
 
 
     public void updateRegistrationRequest(Long id,RegistrationRequestDTO registrationRequestDto);
@@ -16,4 +18,6 @@ public interface RegistrationRequestService {
 
 
     public RegistrationRequest getRegistrationRequest(Long id);
+
+
 }

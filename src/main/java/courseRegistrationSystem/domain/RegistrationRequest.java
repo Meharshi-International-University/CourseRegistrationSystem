@@ -22,7 +22,7 @@ public class RegistrationRequest {
     @JoinColumn(name = "studentId")
     private Student student;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "courseOfferingId")
     private  CourseOffering courseOffering;
 

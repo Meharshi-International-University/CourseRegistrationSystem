@@ -17,6 +17,7 @@ public class RegistrationRequestDTO {
 
     private String courseOfferingCode;
 
+
     public RegistrationRequestDTO() {
     }
 
