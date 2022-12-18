@@ -1,10 +1,10 @@
 package courseRegistrationSystem.dto;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 public class RegistrationRequestDTO {
 
     private int priorityNumber;
@@ -12,6 +12,10 @@ public class RegistrationRequestDTO {
     private StudentDTO studentDTO;
 
     private CourseOfferingDTO courseOfferingDTO;
+
+    private String studentId;
+
+    private String courseOfferingCode;
 
     public RegistrationRequestDTO() {
     }
