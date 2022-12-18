@@ -1,7 +1,7 @@
 package courseRegistrationSystem.controller;
 
 import courseRegistrationSystem.domain.Registration;
-import courseRegistrationSystem.dto.RegistrationDto;
+import courseRegistrationSystem.dto.RegistrationDTO;
 import courseRegistrationSystem.service.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,18 +21,18 @@ public class RegistrationController {
 
 
     @GetMapping(value = {"/list"})
-    public ResponseEntity<List<RegistrationDto>> getRegistrationAlls() {
+    public ResponseEntity<List<RegistrationDTO>> getRegistrationAlls() {
         var allJobs = registrationService.getAllRegisters();
         return  new ResponseEntity<>(allJobs, HttpStatus.OK);
     }
 
     @GetMapping(path = {"/get/{registrationId}"})
-    public ResponseEntity<RegistrationDto> getRegistrationById(@PathVariable Long registrationId) {
+    public ResponseEntity<RegistrationDTO> getRegistrationById(@PathVariable Long registrationId) {
         return  new ResponseEntity<>(registrationService.getRegistrationBy_Id(registrationId),HttpStatus.OK);
     }
 
     @PostMapping(value = {"/addRegistration"})
-    public ResponseEntity<Registration> addNewJob( @Valid @RequestBody RegistrationDto registrationdto) {
+    public ResponseEntity<Registration> addNewJob( @Valid @RequestBody RegistrationDTO registrationdto) {
         return new ResponseEntity<>(registrationService.addNewRegistration(registrationdto),HttpStatus.OK);
     }
 

@@ -5,14 +5,13 @@ import courseRegistrationSystem.service.Mapper;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MapperRegistration implements Mapper<Registration,RegistrationDto> {
+public class MapperRegistration implements Mapper<Registration,RegistrationDTO> {
 
     @Override
     //from normal to Dto
-    public RegistrationDto mapTo(Registration entity) {
-        RegistrationDto dto= new RegistrationDto();
-        dto.setRegistrationId(entity.getRegistrationId());
-        dto.setCourseOffering(entity.getCourseOffering());
+    public RegistrationDTO mapTo(Registration entity) {
+        RegistrationDTO dto= new RegistrationDTO();
+        dto.setCourseOfferingDTO(entity.getCourseOffering());
         dto.setStudent(entity.getStudent());
         return dto;
     }
