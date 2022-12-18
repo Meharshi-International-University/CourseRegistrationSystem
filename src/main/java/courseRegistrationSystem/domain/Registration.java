@@ -4,27 +4,31 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
 @Setter
+@ToString
 public class Registration {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long registrationId;
 
     @ManyToOne
+    @JoinColumn(name = "studentId")
     private Student student;
 
     @ManyToOne
-    private CourseOffering CourseOffering;
+    @JoinColumn(name = "reg_courseOfferingId")
+    private CourseOffering courseOffering;
 
     public Registration() {
 
     }
 
-    public Registration( Student student, courseRegistrationSystem.domain.CourseOffering courseOffering) {
+    public Registration( Student student, CourseOffering courseOffering) {
         this.student = student;
-        CourseOffering = courseOffering;
+        this.courseOffering = courseOffering;
     }
 }

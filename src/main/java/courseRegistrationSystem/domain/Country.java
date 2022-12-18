@@ -4,32 +4,23 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Getter
-@ToString
 @Setter
-public class Faculty {
+@Getter
+@NoArgsConstructor
+@ToString
+public class Country {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Integer facultyId;
     private String name;
-    private String email;
-    private String title;
 
-    public Faculty(Integer facultyId, String name, String email, String title) {
-        this.facultyId = facultyId;
+    public Country(String name){
         this.name = name;
-        this.email = email;
-        this.title = title;
-    }
-    public Faculty() {
-
     }
 }
-

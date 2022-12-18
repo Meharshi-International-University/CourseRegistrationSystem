@@ -5,6 +5,7 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
+@ToString
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,7 +18,7 @@ public class Student {
     @OneToOne
     private Address homeAddress;
 
-    public Student(String studentId, String name, String email) {
+    public Student(String studentId, String name, String email, Address mailAddress, Address homeAddress) {
         this.studentId = studentId;
         this.name = name;
         this.email = email;

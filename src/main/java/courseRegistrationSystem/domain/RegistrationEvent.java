@@ -4,13 +4,16 @@ import courseRegistrationSystem.enums.RegistrationEventStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
 @Setter
+@ToString
 public class RegistrationEvent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +21,8 @@ public class RegistrationEvent {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     @ManyToMany
-    private List<RegistrationGroup> registrationGroups;
+    @JoinTable
+    private List<RegistrationGroup> registrationGroups =new ArrayList<>();
     @Enumerated
     private RegistrationEventStatus registrationEventStatus;
 

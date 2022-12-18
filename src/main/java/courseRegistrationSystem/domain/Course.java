@@ -4,12 +4,15 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Setter
 @Getter
+@ToString
 public class Course {
 
     @Id
@@ -20,7 +23,8 @@ public class Course {
     private String description;
 
     @OneToMany
-    private List<Course>  prerequisite;
+    @OrderColumn(name="sequence")
+    private List<Course>  prerequisite= new ArrayList<>();
 
     public Course(String courseCode, String name, String description) {
         this.courseCode = courseCode;
