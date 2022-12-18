@@ -1,7 +1,5 @@
-package courseRegistrationSystem.DTO;
+package courseRegistrationSystem.dto;
 
-import courseRegistrationSystem.domain.Address;
-import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,9 +1,5 @@
-package courseRegistrationSystem.DTO;
+package courseRegistrationSystem.dto;
 
-import courseRegistrationSystem.domain.CourseOffering;
-import courseRegistrationSystem.domain.Student;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
