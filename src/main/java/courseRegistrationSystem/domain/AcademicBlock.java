@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
 @Entity
 @Table(name="academicblock")
 @ToString
@@ -20,7 +22,9 @@ public class AcademicBlock {
     private String name;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
-
+    @OneToMany(mappedBy = "academicBlock")
+    @OrderColumn(name="sequence")
+private List<CourseOffering> courseOfferings;
     public String getBlockName(){
         return this.name;
     }

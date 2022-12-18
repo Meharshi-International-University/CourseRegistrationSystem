@@ -10,13 +10,16 @@ import java.util.List;
 @Setter
 public class RegistrationGroupDTO {
 
+
+    private Long registrationGroupId;
     private List<StudentDTO> studentDTOS = new ArrayList<>();
     private List<AcademicBlockDTO> acadamicBlockDTOS = new ArrayList<>();
 
     public RegistrationGroupDTO() {
     }
 
-    public RegistrationGroupDTO(List<StudentDTO> studentDTOS, List<AcademicBlockDTO> acadamicBlockDTOS) {
+    public RegistrationGroupDTO(Long registrationGroupId, List<StudentDTO> studentDTOS, List<AcademicBlockDTO> acadamicBlockDTOS) {
+        this.registrationGroupId = registrationGroupId;
         this.studentDTOS = studentDTOS;
         this.acadamicBlockDTOS = acadamicBlockDTOS;
     }

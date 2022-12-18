@@ -1,20 +1,19 @@
 package courseRegistrationSystem.service;
 
-import courseRegistrationSystem.domain.Registration;
-import courseRegistrationSystem.dto.RegistrationDTO;
+import courseRegistrationSystem.domain.RegistrationEvent;
 import courseRegistrationSystem.dto.RegistrationEventDTO;
-import courseRegistrationSystem.repository.RegistrationEventRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import courseRegistrationSystem.enums.RegistrationEventStatus;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface RegistrationEventService {
 
     List<RegistrationEventDTO> getAllRegistrationEvents();
-    RegistrationEventDTO getRegistrationEventBy_Id(Long registrationEventId);
-    RegistrationEventDTO addNewRegistrationEvent(RegistrationEventDTO registrationEventDTO);
-    RegistrationEventDTO updateRegistrationEvent(Long registrationId, RegistrationEventDTO registrationEventDTO);
+    RegistrationEventDTO  getRegistrationEventBy_Id(Long registrationEventId);
+    RegistrationEventDTO addNewRegistrationEvent(RegistrationEvent registrationEvent);
+    RegistrationEventDTO updateRegistrationEvent(Long registrationId, RegistrationEvent registrationEvent);
     void deleteById(Long registrationEventId);
+    RegistrationEventDTO registrationStatus(RegistrationEventStatus status);
 
 }

@@ -2,11 +2,14 @@ package courseRegistrationSystem.service.impl;
 
 
 import courseRegistrationSystem.domain.Registration;
+import courseRegistrationSystem.domain.RegistrationEvent;
 import courseRegistrationSystem.dto.MapperRegistration;
 import courseRegistrationSystem.dto.MapperRegistrationDto;
 import courseRegistrationSystem.dto.RegistrationDTO;
+import courseRegistrationSystem.dto.RegistrationEventDTO;
 import courseRegistrationSystem.repository.RegistrationRepository;
 import courseRegistrationSystem.service.RegistrationService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,14 +28,13 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Autowired
     private MapperRegistration mapper;
     @Autowired
-    private MapperRegistrationDto mapperDto;
+    private ModelMapper modelMapper;
 
     @Override
     public List<RegistrationDTO> getAllRegisters() {
         return registrationRepository.findAll()
-                .stream().map(entity->{
-                  return mapper.mapTo(entity);
-                }).collect(Collectors.toList());
+                .stream().map(entity-> modelMapper.map(entity,RegistrationDTO.class))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -46,31 +48,27 @@ public class RegistrationServiceImpl implements RegistrationService {
     }
 
     @Override
-    public void addNewRegistration(RegistrationDTO registrationDto) {
-       Registration newDto= mapperDto.mapTo(registrationDto);
-         registrationRepository.save(newDto);
+    public RegistrationDTO addNewRegistration(Registration registration) {
+
+        return  modelMapper.map(registrationRepository.save(registration),RegistrationDTO.class);
     }
 
     @Override
-    public void updateRegistration(Long registrationId, RegistrationDTO registration) {
+    public RegistrationDTO updateRegistration(Long registrationId, Registration registration) {
         Optional<Registration> reg = registrationRepository.findById(registrationId);
+        Registration updateRegistration=null;
         if (reg.isPresent()){
-            Registration r = reg.get();
-
-             r.setCourseOffering(registration.getCourseOfferingDTO());
-             r.setStudent(registration.getStudent());
-             registrationRepository.save(r);
+            updateRegistration= reg.stream().map(
+                    newRegistration->{
+                        newRegistration.setRegistrationId(registration.getRegistrationId());
+                        newRegistration.setStudent(registration.getStudent());
+                        newRegistration.setCourseOffering(registration.getCourseOffering());
+                        return newRegistration;
+                    }).findFirst().get();
+             registrationRepository.save(updateRegistration);
         }
+        return  modelMapper.map(registrationRepository,RegistrationDTO.class);
     }
-//    @Override
-//    public Registration updateRegistration(Long registrationId, RegistrationDTO registration) {
-//        Optional<Registration> reg = registrationRepository.findById(registrationId);
-//        if (reg.isPresent()){
-//            // Do something
-//            // return Registrations
-//        }
-//        return null
-
     @Override
     public void deleteById(Long registrationId) {
       registrationRepository.deleteById(registrationId);

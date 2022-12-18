@@ -1,5 +1,6 @@
 package courseRegistrationSystem.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import courseRegistrationSystem.domain.Course;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -28,12 +29,15 @@ public class CourseOffering {
     private List<Faculty> faculties=new ArrayList<>();
     @OneToMany(mappedBy = "courseOffering")
     @OrderColumn(name="sequence")
+    @JsonManagedReference
     private List<Registration> registrations= new ArrayList<>();
 
     @OneToMany(mappedBy = "courseOffering")
     @OrderColumn(name="sequence")
     private List<RegistrationRequest> registrationRequests= new ArrayList<>();
-    @OneToOne
+    @ManyToOne()
+    @JoinColumn(name = "courseOfferingId")
+
     private AcademicBlock academicBlock;
 
 

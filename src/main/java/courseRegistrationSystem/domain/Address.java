@@ -14,7 +14,7 @@ public class Address {
     private Long id;
     private String street;
     private String postalCode;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade =CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinColumn(name = "city_id")
     private City city;
 

@@ -1,5 +1,6 @@
 package courseRegistrationSystem.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
@@ -20,7 +21,8 @@ public class Registration {
     private Student student;
 
     @ManyToOne
-    @JoinColumn(name = "reg_courseOfferingId")
+    @JoinColumn(name = "courseOfferingId")
+    @JsonBackReference
     private CourseOffering courseOffering;
 
     public Registration() {
