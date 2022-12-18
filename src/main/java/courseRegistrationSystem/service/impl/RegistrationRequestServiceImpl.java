@@ -11,9 +11,14 @@ import courseRegistrationSystem.service.RegistrationRequestService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
+@Transactional
 public class RegistrationRequestServiceImpl implements RegistrationRequestService {
 
     @Autowired
@@ -27,14 +32,17 @@ public class RegistrationRequestServiceImpl implements RegistrationRequestServic
 
 
     @Override
-    public void saveRegistrationRequest(RegistrationRequestDTO registrationRequestDto) {
-        log.info("Inside  saveRegistrationRequest method of RegistrationServiceImpl");
+    public void saveRegistrationRequests(String studentId,List<RegistrationRequestDTO> registrationRequestDtos) {
+        log.info("Inside  saveRegistrationRequests method of RegistrationServiceImpl");
 
-        Student oStudent = studentRepository.findByStudentId(registrationRequestDto.getStudentId());
-        CourseOffering oCourseOffering = courseOfferingRepository.findByCourseOfferingCode(registrationRequestDto.getCourseOfferingCode());
-        RegistrationRequest registrationRequest = new RegistrationRequest(registrationRequestDto.getPriorityNumber(),oStudent,oCourseOffering);
-        registrationRequestRepository.save(registrationRequest);
+        Student oStudent = studentRepository.findByStudentId(studentId);
+        List<RegistrationRequest> registrationRequestList=   registrationRequestDtos.stream().map(registrationRequestDTO -> {
+            CourseOffering oCourseOffering = courseOfferingRepository.findByCourseOfferingCode(registrationRequestDTO.getCourseOfferingCode());
+            return new RegistrationRequest(registrationRequestDTO.getPriorityNumber(),oStudent,oCourseOffering);
+        }).collect(Collectors.toList());
+        registrationRequestRepository.saveAll(registrationRequestList);
     }
+
 
     @Override
     public void updateRegistrationRequest(Long id,RegistrationRequestDTO registrationRequestDto)  {
@@ -62,6 +70,7 @@ public class RegistrationRequestServiceImpl implements RegistrationRequestServic
         log.info("Inside  getRegistrationRequest method of RegistrationServiceImpl");
         return registrationRequestRepository.findById(id).orElseThrow(()->new RuntimeException("Registration Request Not Found"));
     }
+
 
 
 }

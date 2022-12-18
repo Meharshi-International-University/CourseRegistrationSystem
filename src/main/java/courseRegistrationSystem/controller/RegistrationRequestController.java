@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/registration-requests/")
 @Slf4j
@@ -17,11 +19,11 @@ public class RegistrationRequestController {
     private RegistrationRequestService registrationRequestService;
 
 
-    @PostMapping()
-    public ResponseEntity<?> saveRegistrationRequest(@RequestBody RegistrationRequestDTO registrationRequest){
-        log.info("Inside saveRegistrationRequest method of RegistrationRequestController");
+    @PostMapping("{studentId}")
+    public ResponseEntity<?> saveRegistrationRequests(@PathVariable("studentId") String studentId,@RequestBody List<RegistrationRequestDTO> registrationRequests){
+        log.info("Inside saveRegistrationRequests method of RegistrationRequestController");
         try {
-            registrationRequestService.saveRegistrationRequest(registrationRequest);
+            registrationRequestService.saveRegistrationRequests(studentId,registrationRequests);
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -56,10 +58,6 @@ public class RegistrationRequestController {
         return  ResponseEntity.ok().body( registrationRequestService.getRegistrationRequest(id));
 
     }
-
-
-
-
 
 
 }
