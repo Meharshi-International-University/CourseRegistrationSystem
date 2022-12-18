@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -26,8 +28,6 @@ public class RegistrationEventController {
     @GetMapping("/latest")
     public ResponseEntity<List<RegistrationEventDTO>> getRegistrationAlls() {
         var allRegistrations = registrationEventService.getAllRegistrationEvents();
-        RegistrationEvent event = null;
-
         return  new ResponseEntity<>(allRegistrations, HttpStatus.OK);
     }
 

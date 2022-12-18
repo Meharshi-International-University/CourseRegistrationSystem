@@ -1,6 +1,7 @@
 package courseRegistrationSystem.service;
 
 import courseRegistrationSystem.domain.Registration;
+import courseRegistrationSystem.domain.RegistrationEvent;
 import courseRegistrationSystem.dto.RegistrationDTO;
 import courseRegistrationSystem.dto.RegistrationEventDTO;
 import courseRegistrationSystem.repository.RegistrationEventRepository;
@@ -16,5 +17,6 @@ public interface RegistrationEventService {
     RegistrationEventDTO addNewRegistrationEvent(RegistrationEventDTO registrationEventDTO);
     RegistrationEventDTO updateRegistrationEvent(Long registrationId, RegistrationEventDTO registrationEventDTO);
     void deleteById(Long registrationEventId);
+    void registrationEventStatus( RegistrationEvent event);
 
 }
