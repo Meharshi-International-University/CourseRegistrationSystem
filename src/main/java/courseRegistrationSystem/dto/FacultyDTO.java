@@ -1,4 +1,4 @@
-package courseRegistrationSystem.DTO;
+package courseRegistrationSystem.dto;
 
 import lombok.Getter;
 import lombok.Setter;

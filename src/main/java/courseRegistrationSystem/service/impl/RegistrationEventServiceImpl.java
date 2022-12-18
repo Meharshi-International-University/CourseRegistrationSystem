@@ -1,7 +1,5 @@
 package courseRegistrationSystem.service.impl;
 
-import courseRegistrationSystem.domain.Registration;
-import courseRegistrationSystem.dto.RegistrationDTO;
 import courseRegistrationSystem.dto.RegistrationEventDTO;
 import courseRegistrationSystem.repository.RegistrationEventRepository;
 import courseRegistrationSystem.service.RegistrationEventService;

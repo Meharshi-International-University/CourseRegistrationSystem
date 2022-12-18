@@ -1,7 +1,6 @@
 package courseRegistrationSystem.service;
 
 
-import courseRegistrationSystem.domain.Registration;
 import courseRegistrationSystem.dto.RegistrationDTO;
 
 import java.util.List;

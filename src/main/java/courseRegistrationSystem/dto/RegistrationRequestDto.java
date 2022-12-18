@@ -1,18 +1,15 @@
 package courseRegistrationSystem.dto;
 
 import lombok.Data;
-import org.springframework.stereotype.Component;
 
-@Component
 @Data
-public class RegistrationRequestDto {
+public class RegistrationRequestDTO {
 
     private int priorityNumber;
 
     private String studentId;
 
     private String courseOfferingCode;
-
 
 
 }

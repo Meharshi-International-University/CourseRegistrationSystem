@@ -1,8 +1,6 @@
 package courseRegistrationSystem.dto;
 
-import courseRegistrationSystem.domain.CourseOffering;
 import courseRegistrationSystem.domain.Student;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,12 +8,12 @@ import lombok.Setter;
 @Setter
 public class RegistrationDTO {
     private Student student;
-    private CourseOffering courseOfferingDTO;
+    private CourseOfferingDTO courseOfferingDTO;
 
     public RegistrationDTO() {
     }
 
-    public RegistrationDTO(Student student, CourseOffering courseOfferingDTO) {
+    public RegistrationDTO(Student student, CourseOfferingDTO courseOfferingDTO) {
         this.student = student;
         this.courseOfferingDTO = courseOfferingDTO;
     }

@@ -1,4 +1,4 @@
-package courseRegistrationSystem.DTO;
+package courseRegistrationSystem.dto;
 
 import courseRegistrationSystem.enums.Semester;
 import jakarta.persistence.Enumerated;

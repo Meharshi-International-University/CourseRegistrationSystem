@@ -1,14 +1,15 @@
 package courseRegistrationSystem.service;
 
 import courseRegistrationSystem.domain.RegistrationRequest;
-import courseRegistrationSystem.dto.RegistrationRequestDto;
+import courseRegistrationSystem.dto.RegistrationRequestDTO;
+
 
 public interface RegistrationRequestService {
 
-    public void saveRegistrationRequest(RegistrationRequestDto registrationRequestDto);
+    public void saveRegistrationRequest(RegistrationRequestDTO registrationRequestDto);
 
 
-    public RegistrationRequest updateRegistrationRequest(Long id,RegistrationRequestDto registrationRequestDto);
+    public RegistrationRequest updateRegistrationRequest(Long id,RegistrationRequestDTO registrationRequestDto);
 
 
     public void deleteRegistrationRequest(Long id);

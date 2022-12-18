@@ -3,16 +3,14 @@ package courseRegistrationSystem.service.impl;
 import courseRegistrationSystem.domain.CourseOffering;
 import courseRegistrationSystem.domain.RegistrationRequest;
 import courseRegistrationSystem.domain.Student;
-import courseRegistrationSystem.dto.RegistrationRequestDto;
+import courseRegistrationSystem.dto.RegistrationRequestDTO;
+import courseRegistrationSystem.repository.CourseOfferingRepository;
 import courseRegistrationSystem.repository.RegistrationRequestRepository;
+import courseRegistrationSystem.repository.StudentRepository;
 import courseRegistrationSystem.service.RegistrationRequestService;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.swing.text.html.Option;
-import java.util.Optional;
 
 @Service
 @Slf4j
@@ -21,25 +19,30 @@ public class RegistrationRequestServiceImpl implements RegistrationRequestServic
     @Autowired
     private RegistrationRequestRepository registrationRequestRepository;
 
+    @Autowired
+    private StudentRepository studentRepository;
+
+    @Autowired
+    private CourseOfferingRepository courseOfferingRepository;
+
 
     @Override
-    public void saveRegistrationRequest(RegistrationRequestDto registrationRequestDto) {
+    public void saveRegistrationRequest(RegistrationRequestDTO registrationRequestDto) {
     log.info("Inside  saveRegistrationRequest method of RegistrationServiceImpl");
-    //TOD0
-        //GET FROM DB
-        Student oStudent = new Student("1","Srijana","srijana.lama@miu.edu");
-        CourseOffering oCourseOffering = new CourseOffering();
+
+        Student oStudent = studentRepository.findByStudentId(registrationRequestDto.getStudentId());
+        CourseOffering oCourseOffering = courseOfferingRepository.findByCourseOfferingCode(registrationRequestDto.getCourseOfferingCode());
         RegistrationRequest registrationRequest = new RegistrationRequest(registrationRequestDto.getPriorityNumber(),oStudent,oCourseOffering);
         registrationRequestRepository.save(registrationRequest);
     }
 
     @Override
-    public RegistrationRequest updateRegistrationRequest(Long id,RegistrationRequestDto registrationRequestDto)  {
+    public RegistrationRequest updateRegistrationRequest(Long id,RegistrationRequestDTO registrationRequestDto)  {
         log.info("Inside  updateRegistrationRequest method of RegistrationServiceImpl");
-        //TOD0
-        //GET FROM DB
-        Student oStudent = new Student("1","Srijana","srijana.lama@miu.edu");
-        CourseOffering oCourseOffering = new CourseOffering();
+
+        Student oStudent = studentRepository.findByStudentId(registrationRequestDto.getStudentId());
+        CourseOffering oCourseOffering = courseOfferingRepository.findByCourseOfferingCode(registrationRequestDto.getCourseOfferingCode());
+
 
         RegistrationRequest oRegistrationRequest = registrationRequestRepository.findById(id).orElseThrow(() ->
           new RuntimeException("Registration Request Not Found "));

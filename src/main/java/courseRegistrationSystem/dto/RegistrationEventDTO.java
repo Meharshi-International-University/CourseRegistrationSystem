@@ -1,6 +1,5 @@
-package courseRegistrationSystem.DTO;
+package courseRegistrationSystem.dto;
 
-import courseRegistrationSystem.domain.RegistrationGroup;
 import courseRegistrationSystem.enums.RegistrationEventStatus;
 import lombok.Getter;
 import lombok.Setter;

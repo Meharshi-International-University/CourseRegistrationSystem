@@ -1,7 +1,5 @@
-package courseRegistrationSystem.DTO;
+package courseRegistrationSystem.dto;
 
-import courseRegistrationSystem.domain.AcademicBlock;
-import courseRegistrationSystem.domain.Student;
 import lombok.Getter;
 import lombok.Setter;
 

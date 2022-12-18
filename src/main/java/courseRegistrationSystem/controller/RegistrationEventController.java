@@ -1,10 +1,7 @@
 package courseRegistrationSystem.controller;
 
-import courseRegistrationSystem.domain.Registration;
 import courseRegistrationSystem.domain.RegistrationEvent;
-import courseRegistrationSystem.dto.RegistrationDTO;
 import courseRegistrationSystem.dto.RegistrationEventDTO;
-import courseRegistrationSystem.service.RegistrationService;
 import courseRegistrationSystem.service.impl.RegistrationEventServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
