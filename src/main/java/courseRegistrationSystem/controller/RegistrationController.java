@@ -22,18 +22,24 @@ public class RegistrationController {
 
     @GetMapping(value = {"/list"})
     public ResponseEntity<List<RegistrationDTO>> getRegistrationAlls() {
-        var allJobs = registrationService.getAllRegisters();
-        return  new ResponseEntity<>(allJobs, HttpStatus.OK);
+        var allRegistrations = registrationService.getAllRegisters();
+        return  new ResponseEntity<>(allRegistrations, HttpStatus.OK);
     }
 
-    @GetMapping(path = {"/get/{registrationId}"})
+    @GetMapping(value = {"/get/{registrationId}"})
     public ResponseEntity<RegistrationDTO> getRegistrationById(@PathVariable Long registrationId) {
+
         return  new ResponseEntity<>(registrationService.getRegistrationBy_Id(registrationId),HttpStatus.OK);
     }
-
-    @PostMapping(value = {"/addRegistration"})
-    public ResponseEntity<Registration> addNewJob( @Valid @RequestBody RegistrationDTO registrationdto) {
-        return new ResponseEntity<>(registrationService.addNewRegistration(registrationdto),HttpStatus.OK);
-    }
+//
+//    @PostMapping(value = {"/addRegistration"})
+//    public ResponseEntity<Registration> addNewJob( @Valid @RequestBody RegistrationDTO registrationdto) {
+//        return new ResponseEntity<>(registrationService.addNewRegistration(registrationdto),HttpStatus.OK);
+//    }
+//    @DeleteMapping(value = {"/delete/{registrationId}"})
+//    public ResponseEntity<Void> deleteRegistrationById(@PathVariable Long registrationId) {
+//       Registration registration= registrationService.deleteById(registrationId);
+//        return  new ResponseEntity<>(,HttpStatus.NO_CONTENT);
+//    }
 
 }
