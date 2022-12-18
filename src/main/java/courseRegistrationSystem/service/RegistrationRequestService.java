@@ -9,7 +9,7 @@ public interface RegistrationRequestService {
     public void saveRegistrationRequest(RegistrationRequestDTO registrationRequestDto);
 
 
-    public RegistrationRequest updateRegistrationRequest(Long id,RegistrationRequestDTO registrationRequestDto);
+    public void updateRegistrationRequest(Long id,RegistrationRequestDTO registrationRequestDto);
 
 
     public void deleteRegistrationRequest(Long id);

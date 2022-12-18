@@ -37,7 +37,7 @@ public class RegistrationRequestServiceImpl implements RegistrationRequestServic
     }
 
     @Override
-    public RegistrationRequest updateRegistrationRequest(Long id,RegistrationRequestDTO registrationRequestDto)  {
+    public void updateRegistrationRequest(Long id,RegistrationRequestDTO registrationRequestDto)  {
         log.info("Inside  updateRegistrationRequest method of RegistrationServiceImpl");
 
         Student oStudent = studentRepository.findByStudentId(registrationRequestDto.getStudentId());
@@ -48,7 +48,7 @@ public class RegistrationRequestServiceImpl implements RegistrationRequestServic
           new RuntimeException("Registration Request Not Found "));
 
         registrationRequestRepository.save(oRegistrationRequest);
-        return null;
+
     }
 
     @Override
