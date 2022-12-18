@@ -11,7 +11,7 @@ public class CourseRegistrationSystemApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(CourseRegistrationSystemApplication.class, args);
-
+        System.out.println("Hello Group 6");
     }
 
     @Bean

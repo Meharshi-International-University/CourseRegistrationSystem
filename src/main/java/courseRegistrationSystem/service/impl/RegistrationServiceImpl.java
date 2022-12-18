@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -45,20 +46,30 @@ public class RegistrationServiceImpl implements RegistrationService {
     }
 
     @Override
-    public Registration addNewRegistration(RegistrationDTO registrationDto) {
+    public void addNewRegistration(RegistrationDTO registrationDto) {
        Registration newDto= mapperDto.mapTo(registrationDto);
-        return  registrationRepository.save(newDto);
+         registrationRepository.save(newDto);
     }
 
     @Override
-    public Registration updateRegistration(Long registrationId, RegistrationDTO registration) {
-        RegistrationDTO getId= registrationRepository.findById(registrationId)
-                .stream().map(entiy->{
-                    return mapper.mapTo(entiy);
-                }).findFirst().orElse(null);
-//        if ()
-        return null;
+    public void updateRegistration(Long registrationId, RegistrationDTO registration) {
+        Optional<Registration> reg = registrationRepository.findById(registrationId);
+        if (reg.isPresent()){
+            Registration r = reg.get();
+
+             r.setCourseOffering(registration.getCourseOfferingDTO());
+             r.setStudent(registration.getStudent());
+             registrationRepository.save(r);
+        }
     }
+//    @Override
+//    public Registration updateRegistration(Long registrationId, RegistrationDTO registration) {
+//        Optional<Registration> reg = registrationRepository.findById(registrationId);
+//        if (reg.isPresent()){
+//            // Do something
+//            // return Registrations
+//        }
+//        return null
 
     @Override
     public void deleteById(Long registrationId) {
