@@ -20,4 +20,5 @@ public interface RegistrationRequestService {
     public RegistrationRequest getRegistrationRequest(Long id);
 
 
+    List<RegistrationRequest> getRegistrationRequestByStudent(Long studentId);
 }

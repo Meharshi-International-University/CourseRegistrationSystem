@@ -13,9 +13,8 @@ public class RegistrationRequestDTO {
 
     private CourseOfferingDTO courseOfferingDTO;
 
-    private String studentId;
 
-    private String courseOfferingCode;
+    private Long courseOfferringId;
 
 
     public RegistrationRequestDTO() {

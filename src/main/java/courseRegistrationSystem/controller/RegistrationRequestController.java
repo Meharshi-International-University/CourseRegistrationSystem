@@ -25,7 +25,7 @@ public class RegistrationRequestController {
         try {
             registrationRequestService.saveRegistrationRequests(studentId,registrationRequests);
         }catch (Exception e){
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(e.getLocalizedMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(HttpStatus.OK);
 
@@ -56,6 +56,13 @@ public class RegistrationRequestController {
     public ResponseEntity<?> getRegistrationRequest(@PathVariable("id") Long id){
         log.info("Inside getRegistrationRequest method of RegistrationRequestController");
         return  ResponseEntity.ok().body( registrationRequestService.getRegistrationRequest(id));
+
+    }
+
+    @GetMapping("by-student/{studentId}")
+    public ResponseEntity<?> getRegistrationRequestByStudent(@PathVariable("studentId") Long studentId){
+        log.info("Inside getRegistrationRequestByStudent method of RegistrationRequestController");
+        return  ResponseEntity.ok().body( registrationRequestService.getRegistrationRequestByStudent(studentId));
 
     }
 
