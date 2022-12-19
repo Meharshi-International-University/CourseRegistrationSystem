@@ -1,7 +1,10 @@
 package courseRegistrationSystem.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import courseRegistrationSystem.domain.Course;
 import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -30,9 +33,9 @@ public class CourseOffering {
     @OrderColumn(name="sequence")
     private List<Registration> registrations= new ArrayList<>();
 
-//    @OneToMany(mappedBy = "courseOffering")
-//    //@OrderColumn(name="sequence")
-//    private List<RegistrationRequest> registrationRequests= new ArrayList<>();
+    @OneToMany(mappedBy = "courseOffering")
+    @OrderColumn(name="sequence")
+    private List<RegistrationRequest> registrationRequests= new ArrayList<>();
     @OneToOne
     private AcademicBlock academicBlock;
 
