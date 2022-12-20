@@ -8,6 +8,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,7 @@ public class CourseOffering {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String courseOfferingCode;
     private int capacity;
     private int availableSeats;
@@ -39,6 +41,8 @@ public class CourseOffering {
     @OneToOne
     private AcademicBlock academicBlock;
 
+    private String facultyInitials;
+
 
     public CourseOffering() {
     }
@@ -49,5 +53,13 @@ public class CourseOffering {
         this.availableSeats = availableSeats;
         this.course = course;
         this.academicBlock = academicBlock;
+    }
+    public CourseOffering(int capacity, int availableSeats, Course course, AcademicBlock academicBlock ,String facultyInitials) {
+        this.courseOfferingCode = course.getCourseCode()+ "-"+academicBlock.getBlockCode() +"-"+facultyInitials;
+        this.capacity = capacity;
+        this.availableSeats = availableSeats;
+        this.course = course;
+        this.academicBlock = academicBlock;
+
     }
 }
