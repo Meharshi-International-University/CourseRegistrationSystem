@@ -1,25 +1,19 @@
 package courseRegistrationSystem.domain;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
 @Entity
-@Setter
-@Getter
+@Data
+@AllArgsConstructor
 @NoArgsConstructor
 public class City {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "cityname")
+    @Column(name = "cityName")
     private String name;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "state_id")
+    @JoinColumn(name = "stateId")
     private State state;
 
-    public  City(String name, State state){
-        this.name = name;
-        this.state = state;
-    }
 }

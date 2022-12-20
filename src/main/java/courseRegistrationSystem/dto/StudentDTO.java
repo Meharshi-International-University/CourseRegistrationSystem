@@ -11,6 +11,7 @@ public class StudentDTO {
     private AddressDTO mailAddressDTO;
     private AddressDTO homeAddressDTO;
 
+    private String email;
     public StudentDTO() {
     }
 
@@ -19,5 +20,10 @@ public class StudentDTO {
         this.name = name;
         this.mailAddressDTO = mailAddressDTO;
         this.homeAddressDTO = homeAddressDTO;
+    }
+
+    public StudentDTO(String name, String email) {
+        this.name = name;
+        this.email = email;
     }
 }

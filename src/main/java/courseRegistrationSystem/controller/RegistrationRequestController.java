@@ -1,14 +1,17 @@
 package courseRegistrationSystem.controller;
 
 import courseRegistrationSystem.dto.RegistrationRequestDTO;
+import courseRegistrationSystem.dto.RegistrationRequestListDTO;
 import courseRegistrationSystem.service.RegistrationRequestService;
+import courseRegistrationSystem.validation.RegistrationRequestListValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/registration-requests/")
@@ -18,12 +21,20 @@ public class RegistrationRequestController {
     @Autowired
     private RegistrationRequestService registrationRequestService;
 
+    @Autowired
+    private RegistrationRequestListValidator registrationRequestListValidator;
 
-    @PostMapping("{studentId}")
-    public ResponseEntity<?> saveRegistrationRequests(@PathVariable("studentId") String studentId,@RequestBody List<RegistrationRequestDTO> registrationRequests){
+    @InitBinder("registrationRequestListDTO")
+    protected void initBinder(WebDataBinder binder) {
+        binder.setValidator(registrationRequestListValidator);
+
+    }
+
+    @PostMapping
+    public ResponseEntity<?> saveRegistrationRequests(@Validated @RequestBody RegistrationRequestListDTO registrationRequestListDTO){
         log.info("Inside saveRegistrationRequests method of RegistrationRequestController");
         try {
-            registrationRequestService.saveRegistrationRequests(studentId,registrationRequests);
+            //registrationRequestService.saveRegistrationRequests(registrationRequestListDTO.getStudentId(),registrationRequestListDTO);
         }catch (Exception e){
             return new ResponseEntity<>(e.getLocalizedMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
         }

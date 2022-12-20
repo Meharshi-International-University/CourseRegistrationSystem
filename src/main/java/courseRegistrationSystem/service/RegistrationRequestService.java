@@ -2,13 +2,14 @@ package courseRegistrationSystem.service;
 
 import courseRegistrationSystem.domain.RegistrationRequest;
 import courseRegistrationSystem.dto.RegistrationRequestDTO;
+import courseRegistrationSystem.dto.RegistrationRequestListDTO;
 
 import java.util.List;
 
 
 public interface RegistrationRequestService {
 
-    void saveRegistrationRequests(String studentId,List<RegistrationRequestDTO> registrationRequestDtos);
+    void saveRegistrationRequests(Long studentId, RegistrationRequestListDTO registrationRequestListDTO);
 
 
     public void updateRegistrationRequest(Long id,RegistrationRequestDTO registrationRequestDto);

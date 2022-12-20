@@ -4,6 +4,7 @@ import courseRegistrationSystem.domain.CourseOffering;
 import courseRegistrationSystem.domain.RegistrationRequest;
 import courseRegistrationSystem.domain.Student;
 import courseRegistrationSystem.dto.RegistrationRequestDTO;
+import courseRegistrationSystem.dto.RegistrationRequestListDTO;
 import courseRegistrationSystem.repository.CourseOfferingRepository;
 import courseRegistrationSystem.repository.RegistrationRequestRepository;
 import courseRegistrationSystem.repository.StudentRepository;
@@ -32,11 +33,11 @@ public class RegistrationRequestServiceImpl implements RegistrationRequestServic
 
 
     @Override
-    public void saveRegistrationRequests(String studentId,List<RegistrationRequestDTO> registrationRequestDtos) {
+    public void saveRegistrationRequests(Long studentId, RegistrationRequestListDTO registrationRequestDtos) {
         log.info("Inside  saveRegistrationRequests method of RegistrationServiceImpl");
 
-        Student oStudent = studentRepository.findByStudentId(studentId);
-        List<RegistrationRequest> registrationRequestList=   registrationRequestDtos.stream().map(registrationRequestDTO -> {
+        Student oStudent = studentRepository.findById(studentId).orElseThrow(()->new RuntimeException("Student  Not Found"));
+        List<RegistrationRequest> registrationRequestList=   registrationRequestDtos.getRegistrationRequestDTOList().stream().map(registrationRequestDTO -> {
             CourseOffering oCourseOffering = courseOfferingRepository.findById(registrationRequestDTO.getCourseOfferringId()).orElseThrow(()-> new RuntimeException("Course Offering Not Found"));
             return new RegistrationRequest(registrationRequestDTO.getPriorityNumber(),oStudent,oCourseOffering);
         }).collect(Collectors.toList());

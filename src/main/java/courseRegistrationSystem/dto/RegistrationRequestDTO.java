@@ -1,30 +1,18 @@
 package courseRegistrationSystem.dto;
 
+
+
+
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.validation.constraints.NotNull;
 
 @Data
 public class RegistrationRequestDTO {
 
     private int priorityNumber;
 
-    private StudentDTO studentDTO;
-
-    private CourseOfferingDTO courseOfferingDTO;
-
-
     private Long courseOfferringId;
-
-
-    public RegistrationRequestDTO() {
-    }
-
-    public RegistrationRequestDTO(int priorityNumber,
-                                  StudentDTO studentDTO,
-                                  CourseOfferingDTO courseOfferingDTO) {
-        this.priorityNumber = priorityNumber;
-        this.studentDTO = studentDTO;
-        this.courseOfferingDTO = courseOfferingDTO;
-    }
 }
