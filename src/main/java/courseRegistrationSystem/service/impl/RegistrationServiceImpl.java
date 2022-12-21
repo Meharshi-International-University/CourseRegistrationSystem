@@ -2,11 +2,10 @@ package courseRegistrationSystem.service.impl;
 
 
 import courseRegistrationSystem.domain.Registration;
-import courseRegistrationSystem.dto.MapperRegistration;
-import courseRegistrationSystem.dto.MapperRegistrationDto;
-import courseRegistrationSystem.dto.RegistrationDTO;
+import courseRegistrationSystem.dto.*;
 import courseRegistrationSystem.repository.RegistrationRepository;
 import courseRegistrationSystem.service.RegistrationService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +25,9 @@ public class RegistrationServiceImpl implements RegistrationService {
     private MapperRegistration mapper;
     @Autowired
     private MapperRegistrationDto mapperDto;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
     public List<RegistrationDTO> getAllRegisters() {
@@ -57,7 +59,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         if (reg.isPresent()){
             Registration r = reg.get();
 
-             r.setCourseOffering(registration.getCourseOfferingDTO());
+             r.setCourseOffering(registration.getCourseOffering());
              r.setStudent(registration.getStudent());
              registrationRepository.save(r);
         }
@@ -74,5 +76,14 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Override
     public void deleteById(Long registrationId) {
       registrationRepository.deleteById(registrationId);
+    }
+
+    @Override
+    public List<CourseOfferingDTO> getAllCourseOfferingByStudentId(Long studentId) {
+//        return registrationRepository.findByStudent(studentId).stream().map(registration ->
+//                modelMapper.map(registration,RegistrationDTO.class)).collect(Collectors.toList());
+      //  registrationRepository.findByStudent(studentId).forEach(System.out::println);
+        return registrationRepository.findCourseOfferingByStudent(studentId).stream().map(courseOffering ->
+                modelMapper.map(courseOffering,CourseOfferingDTO.class)).collect(Collectors.toList());
     }
 }

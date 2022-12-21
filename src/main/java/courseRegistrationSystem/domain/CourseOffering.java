@@ -2,6 +2,7 @@ package courseRegistrationSystem.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import courseRegistrationSystem.domain.Course;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
@@ -30,9 +31,11 @@ public class CourseOffering {
     @OneToOne
     private Faculty faculty;
     @OneToMany(mappedBy = "courseOffering")
+    @JsonManagedReference(value = "courseOffering")
     private List<Registration> registrations= new ArrayList<>();
 
     @OneToMany(mappedBy = "courseOffering")
+    @JsonManagedReference(value = "courseOffering")
     private List<RegistrationRequest> registrationRequests= new ArrayList<>();
     @ManyToOne(fetch = FetchType.LAZY)
     private AcademicBlock academicBlock;

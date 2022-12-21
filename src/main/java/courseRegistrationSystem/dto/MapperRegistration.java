@@ -11,7 +11,7 @@ public class MapperRegistration implements Mapper<Registration,RegistrationDTO> 
     //from normal to Dto
     public RegistrationDTO mapTo(Registration entity) {
         RegistrationDTO dto= new RegistrationDTO();
-        dto.setCourseOfferingDTO(entity.getCourseOffering());
+        dto.setCourseOffering(entity.getCourseOffering());
         dto.setStudent(entity.getStudent());
         return dto;
     }

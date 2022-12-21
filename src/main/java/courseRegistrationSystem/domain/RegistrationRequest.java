@@ -1,5 +1,6 @@
 package courseRegistrationSystem.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import courseRegistrationSystem.domain.pk.GenerateSequenceNumber;
 import courseRegistrationSystem.domain.pk.RegistrationRequestPK;
@@ -25,7 +26,8 @@ public class RegistrationRequest {
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "courseOfferingId")
-    @JsonIgnoreProperties("registrationRequests")
+   // @JsonIgnoreProperties("registrationRequests")
+    @JsonBackReference(value = "registrationRequests")
     private  CourseOffering courseOffering;
 
     @ManyToOne(fetch = FetchType.LAZY)
