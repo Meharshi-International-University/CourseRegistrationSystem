@@ -1,7 +1,9 @@
 package courseRegistrationSystem.repository;
 
+import courseRegistrationSystem.domain.AcademicBlock;
 import courseRegistrationSystem.domain.CourseOffering;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -11,4 +13,7 @@ public interface CourseOfferingRepository extends JpaRepository<CourseOffering,L
     CourseOffering findByCourseOfferingCode(String courseOfferingCode);
 
     List<CourseOffering> findByAcademicBlock_Id(Long id);
+
+
+    AcademicBlock findAcademicBlockById(Long id);
 }

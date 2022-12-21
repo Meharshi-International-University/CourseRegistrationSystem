@@ -1,8 +1,9 @@
 package courseRegistrationSystem.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import courseRegistrationSystem.domain.pk.GenerateSequenceNumber;
 import courseRegistrationSystem.domain.pk.RegistrationRequestPK;
+import courseRegistrationSystem.enums.RegistrationRequestStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,9 +14,6 @@ import lombok.*;
 @NoArgsConstructor
 public class RegistrationRequest {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long id;
 
     private int priorityNumber;
 
@@ -29,6 +27,24 @@ public class RegistrationRequest {
     @JoinColumn(name = "courseOfferingId")
     @JsonIgnoreProperties("registrationRequests")
     private  CourseOffering courseOffering;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private RegistrationEvent registrationEvent;
+
+    @Enumerated
+    private RegistrationRequestStatus status = RegistrationRequestStatus.ONGOING;
+
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private GenerateSequenceNumber randomId;
+
+    public RegistrationRequest(int priorityNumber, Student student, CourseOffering courseOffering, RegistrationEvent registrationEvent) {
+        this.priorityNumber = priorityNumber;
+        this.student = student;
+        this.courseOffering = courseOffering;
+        this.registrationEvent = registrationEvent;
+        this.randomId = new GenerateSequenceNumber();
+    }
 
 
 }

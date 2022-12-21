@@ -2,6 +2,7 @@ package courseRegistrationSystem.validation;
 
 import courseRegistrationSystem.dto.RegistrationRequestDTO;
 import courseRegistrationSystem.dto.RegistrationRequestListDTO;
+import courseRegistrationSystem.service.RegistrationEventService;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ public class RegistrationRequestListValidator implements Validator {
     @Autowired
     private RegistrationRequestValidator registrationRequestValidator;
 
+    @Autowired
+    private RegistrationEventService registrationEventService;
+
     @InitBinder("registrationRequest")
     protected void initBinder(WebDataBinder binder) {
         binder.setValidator(registrationRequestValidator);
@@ -37,6 +41,7 @@ public class RegistrationRequestListValidator implements Validator {
     log.info("Inside validate method of RegistrationRequestListValidator");
         RegistrationRequestListDTO registrationRequestListDTO = (RegistrationRequestListDTO) target;
         ValidationUtils.rejectIfEmpty(errors, "studentId", "studentId.errors", "Student Id is required");
+        ValidationUtils.rejectIfEmpty(errors, "registrationEventId", "registrationEventId.errors", "Registration Event Id is required");
 
         registrationRequestListDTO.getRegistrationRequestDTOList().stream()
                 .dropWhile(new HashSet<>()::add)
@@ -45,10 +50,7 @@ public class RegistrationRequestListValidator implements Validator {
                    throw new IllegalArgumentException("Duplicate Course Offerring Found: " + dup.getCourseOfferringId());
                 });
 
-//        registrationRequestListDTO.getRegistrationRequestDTOList().forEach(
-//                registrationRequest ->
-//                        registrationRequestValidator.validate(registrationRequest,errors)
-//        );
+        registrationEventService.getRegistrationEventBy_Id(registrationRequestListDTO.getRegistrationEventId());
 
     }
 }

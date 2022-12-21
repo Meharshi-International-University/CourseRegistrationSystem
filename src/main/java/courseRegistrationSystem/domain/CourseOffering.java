@@ -30,13 +30,11 @@ public class CourseOffering {
     @OneToOne
     private Faculty faculty;
     @OneToMany(mappedBy = "courseOffering")
-
     private List<Registration> registrations= new ArrayList<>();
 
     @OneToMany(mappedBy = "courseOffering")
-    @OrderColumn(name="sequence")
     private List<RegistrationRequest> registrationRequests= new ArrayList<>();
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private AcademicBlock academicBlock;
     @Transient
     private String facultyInitials;
