@@ -27,12 +27,10 @@ public class CourseOffering {
     private int availableSeats;
     @OneToOne
     private Course course;
-    @OneToMany
-    @JoinColumn(name = "courseOffering_id")
-    @OrderColumn(name="sequence")
-    private List<Faculty> faculties=new ArrayList<>();
+    @OneToOne
+    private Faculty faculty;
     @OneToMany(mappedBy = "courseOffering")
-    @OrderColumn(name="sequence")
+
     private List<Registration> registrations= new ArrayList<>();
 
     @OneToMany(mappedBy = "courseOffering")

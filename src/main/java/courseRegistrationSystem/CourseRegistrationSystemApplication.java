@@ -1,8 +1,10 @@
 package courseRegistrationSystem;
 
 import courseRegistrationSystem.domain.*;
+import courseRegistrationSystem.enums.RegistrationEventStatus;
 import courseRegistrationSystem.utils.EmailService;
 import courseRegistrationSystem.repository.*;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootApplication
 @Slf4j
@@ -37,6 +41,7 @@ public class CourseRegistrationSystemApplication implements CommandLineRunner {
     @Autowired
     private CityRepository cityRepository;
 
+
     @Autowired
     private AddressRepository addressRepository;
 
@@ -49,6 +54,11 @@ public class CourseRegistrationSystemApplication implements CommandLineRunner {
     @Autowired
     private CourseOfferingRepository courseOfferingRepository;
 
+    @Autowired
+    private RegistrationGroupRepository registrationGroupRepository;
+
+    @Autowired
+    private RegistrationEventRepository registrationEventRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(CourseRegistrationSystemApplication.class, args);
@@ -69,7 +79,111 @@ public class CourseRegistrationSystemApplication implements CommandLineRunner {
      saveAddress();
      saveStudentAndAddress();
      saveCourseDetails();
+     saveRegistrationEvent();
 
+
+    }
+
+    private void saveRegistrationEvent() {
+        List<Student> fallFppStudents = new ArrayList<>();
+        fallFppStudents.add(getStudentById(1l));
+        fallFppStudents.add(getStudentById(2l));
+
+        List<Student> fallMppStudents = new ArrayList<>();
+        fallFppStudents.add(getStudentById(3l));
+        fallFppStudents.add(getStudentById(4l));
+
+        List<Student> springFppStudents = new ArrayList<>();
+        springFppStudents.add(getStudentById(5l));
+        springFppStudents.add(getStudentById(6l));
+
+        List<Student> springMppStudents = new ArrayList<>();
+        springMppStudents.add(getStudentById(7l));
+        springMppStudents.add(getStudentById(8l));
+/**
+ * This is list blocks for FPP students
+ */
+        List<AcademicBlock> fallFppAcademicB= new ArrayList<>();
+        fallFppAcademicB.add(getAcademicBlockById(1l));
+        fallFppAcademicB.add(getAcademicBlockById(2l));
+
+/**
+ * This is list blocks for MPP students
+ */
+        List<AcademicBlock> fallMppAcademicB= new ArrayList<>();
+        fallMppAcademicB.add(getAcademicBlockById(3l));
+
+
+
+
+
+
+//        fallFppAcademicB.add(getAcademicBlockById(3l));
+//        fallFppAcademicB.add(getAcademicBlockById(4l));
+//        fallFppAcademicB.add(getAcademicBlockById(5l))
+//        fallFppAcademicB.add(getAcademicBlockById(6l));
+
+
+/**
+ * This is list groups for FPP students in Fall
+ */
+        RegistrationGroup fallFPP= new RegistrationGroup("fallFPP");
+        fallFPP.setAcademicBlocks(fallFppAcademicB);
+        fallFPP.setStudents(fallFppStudents);
+
+        /**
+         * This is list groups for MPP students
+         */
+        RegistrationGroup fallMPP= new RegistrationGroup("fallMPP");
+        fallMPP.setAcademicBlocks(fallMppAcademicB);
+        fallMPP.setStudents(fallMppStudents);
+
+        RegistrationGroup springFPP= new RegistrationGroup("springFPP");
+        springFPP.setStudents(springFppStudents);
+
+
+        RegistrationGroup springMPP= new RegistrationGroup("springMPP");
+        springMPP.setStudents(springMppStudents);
+
+        registrationGroupRepository.save(fallFPP);
+        registrationGroupRepository.save(fallMPP);
+        registrationGroupRepository.save(springFPP);
+        registrationGroupRepository.save(springMPP);
+
+        RegistrationEvent event= new RegistrationEvent
+                (LocalDateTime.of(LocalDate.of(2022,10,20),LocalTime.now()),
+                        LocalDateTime.of(LocalDate.of(2022,10,30),LocalTime.now()),
+                        RegistrationEventStatus.CLOSED);
+        List<RegistrationGroup> groupList=new ArrayList<>();
+        groupList.add(getGroupById(1l));
+        groupList.add(getGroupById(2l));
+
+        event.setRegistrationGroups(groupList);
+
+        RegistrationEvent event2= new RegistrationEvent
+                (LocalDateTime.of(LocalDate.of(2022,12,19),LocalTime.now()),
+                        LocalDateTime.of(LocalDate.of(2023,01,05),LocalTime.now()),RegistrationEventStatus.OPEN);
+
+        List<RegistrationGroup> groupListSpring=new ArrayList<>();
+        groupListSpring.add(getGroupById(3l));
+        groupListSpring.add(getGroupById(4l));
+
+        event2.setRegistrationGroups(groupListSpring);
+          registrationEventRepository.save(event);
+        registrationEventRepository.save(event2);
+
+    }
+    private Student getStudentById(Long studentId){
+        return studentRepository.findById(studentId).orElseThrow(()-> new RuntimeException("Student not found"));
+
+    }
+    private RegistrationGroup getGroupById(Long registratioGroupId){
+        return registrationGroupRepository.findById(registratioGroupId).orElseThrow(()-> new RuntimeException("RegistrationGroup not found"));
+
+    }
+
+    private AcademicBlock getAcademicBlockById(Long academicBlockId){
+        return academicBlockRepository.findById(academicBlockId).orElseThrow(()-> new RuntimeException("AcademicBlock not found"));
 
     }
 
@@ -89,9 +203,22 @@ public class CourseRegistrationSystemApplication implements CommandLineRunner {
                 LocalDateTime.of(LocalDate.of(2022,12,30),LocalTime.MIDNIGHT));
         AcademicBlock oct = new AcademicBlock("10A-10D","Oct 2022", LocalDateTime.of(LocalDate.of(2022,10,1), LocalTime.MIDNIGHT),
                 LocalDateTime.of(LocalDate.of(2022,12,30),LocalTime.MIDNIGHT));
+
+        AcademicBlock jan = new AcademicBlock("01A-01D","Jan 2023", LocalDateTime.of(LocalDate.of(2023,01,1), LocalTime.MIDNIGHT),
+                LocalDateTime.of(LocalDate.of(2023,01,30),LocalTime.MIDNIGHT));
+
+        AcademicBlock feb = new AcademicBlock("02A-02D","Feb 2023", LocalDateTime.of(LocalDate.of(2023,02,1), LocalTime.MIDNIGHT),
+                LocalDateTime.of(LocalDate.of(2023,02,28),LocalTime.MIDNIGHT));
+
+        AcademicBlock marc = new AcademicBlock("03A-03D","March 2023", LocalDateTime.of(LocalDate.of(2023,03,1), LocalTime.MIDNIGHT),
+                LocalDateTime.of(LocalDate.of(2023,03,30),LocalTime.MIDNIGHT));
+
         academicBlockRepository.save(dec);
         academicBlockRepository.save(nov);
         academicBlockRepository.save(oct);
+        academicBlockRepository.save(jan);
+        academicBlockRepository.save(feb);
+        academicBlockRepository.save(marc);
 
 
 
@@ -108,17 +235,47 @@ public class CourseRegistrationSystemApplication implements CommandLineRunner {
 
     }
     public void saveStudentAndAddress(){
-        Address srijanaMailAddress = new Address("1000 Nth 4th St",getCity(1l),"52557");
+        Address mailAddressShared = new Address("1000 Nth 4th St",getCity(1l),"52557");
         Address srijanaHomeAddress = new Address("Dholahity Satdobato",getCity(2l),"65200");
 
+
+        Address homeAddressluwi = new Address("Dealne ave 1000 S",getCity(3l),"65200");
+
+        Address homeAddressedu = new Address("Dealne ave 1000 S",getCity(4l),"62200");
+
+        Address homeAddressromi = new Address("Dealne ave 1000 S",getCity(6l),"656300");
+
         addressRepository.save(srijanaHomeAddress);
-        addressRepository.save(srijanaMailAddress);
-        Student srijana = new Student("22","Srijana Lama","srijana.lama@miu.edu",srijanaMailAddress,srijanaHomeAddress);
+        addressRepository.save(mailAddressShared);
+        addressRepository.save(homeAddressluwi);
+        addressRepository.save(homeAddressedu);
+        addressRepository.save(homeAddressromi);
+
+
+        Student srijana = new Student("21","Srijana Lama","srijana.lama@miu.edu",mailAddressShared,srijanaHomeAddress);
         studentRepository.save(srijana);
 
-        Student srijana2 = new Student("21","Srijana2 Lama2","srijana2.lama@miu.edu",srijanaMailAddress,srijanaHomeAddress);
-        studentRepository.save(srijana2);
+        Student romiyo = new Student("22","romiyo Julie","romiyo.Julie@miu.edu",mailAddressShared,homeAddressromi);
+        studentRepository.save(romiyo);
 
+        Student luwam = new Student("23","Luwam  Fish","luwam.fish@miu.edu",mailAddressShared,homeAddressluwi);
+        studentRepository.save(luwam);
+
+        Student edu = new Student("24","Edu Tes","edu.tes@miu.edu",mailAddressShared,homeAddressedu);
+        studentRepository.save(edu);
+
+
+        Student natnael = new Student("25","natnael  jish","natnael.jish@miu.edu",mailAddressShared,homeAddressluwi);
+        studentRepository.save(natnael);
+
+        Student daniel = new Student("26","dani Tes","dani.tes@miu.edu",mailAddressShared,homeAddressedu);
+        studentRepository.save(daniel);
+
+        Student abiel = new Student("27","abiel  ash","abiel.ash@miu.edu",mailAddressShared,homeAddressromi);
+        studentRepository.save(abiel);
+
+        Student febu = new Student("28","febu Tesi","febu.tems@miu.edu",mailAddressShared,homeAddressluwi);
+        studentRepository.save(febu);
 
     }
 

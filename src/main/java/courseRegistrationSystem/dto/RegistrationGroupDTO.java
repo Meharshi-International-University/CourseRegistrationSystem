@@ -1,34 +1,22 @@
 package courseRegistrationSystem.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class RegistrationGroupDTO {
+    private  Long registrationGroupId;
+    private String name;
+    private List<StudentDTO> students = new ArrayList<>();
+    private List<AcademicBlockDTO> academicBlocks = new ArrayList<>();
 
-    private List<StudentDTO> studentDTOS = new ArrayList<>();
-    private List<AcademicBlockDTO> acadamicBlockDTOS = new ArrayList<>();
 
-    public RegistrationGroupDTO() {
+    public RegistrationGroupDTO(List<StudentDTO> students, List<AcademicBlockDTO> academicBlocks) {
+        this.students = students;
+        this.academicBlocks = academicBlocks;
     }
-
-    public RegistrationGroupDTO(List<StudentDTO> studentDTOS, List<AcademicBlockDTO> acadamicBlockDTOS) {
-        this.studentDTOS = studentDTOS;
-        this.acadamicBlockDTOS = acadamicBlockDTOS;
-    }
-
-    public void addStudentDTO(StudentDTO studentDTO){
-        studentDTOS.add(studentDTO);
-    }
-
-    public void addAcademicBlockDTO(AcademicBlockDTO acadamicBlockDTO){
-        acadamicBlockDTOS.add(acadamicBlockDTO);
-    }
-
-
-
 }

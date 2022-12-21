@@ -12,6 +12,7 @@ import java.util.List;
 public interface RegistrationEventService {
 
     List<RegistrationEventDTO> getAllRegistrationEvents();
+    RegistrationEventDTO findLatestEventByStudentId(Long studentId);
     RegistrationEventDTO getRegistrationEventBy_Id(Long registrationEventId);
     RegistrationEventDTO addNewRegistrationEvent(RegistrationEventDTO registrationEventDTO);
     RegistrationEventDTO updateRegistrationEvent(Long registrationId, RegistrationEventDTO registrationEventDTO);
