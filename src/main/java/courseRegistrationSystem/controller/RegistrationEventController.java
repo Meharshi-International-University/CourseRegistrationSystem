@@ -8,6 +8,8 @@ import courseRegistrationSystem.dto.RegistrationEventStudentDTO;
 import courseRegistrationSystem.service.RegistrationService;
 import courseRegistrationSystem.service.impl.RegistrationEventServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +23,10 @@ import java.util.List;
 public class RegistrationEventController {
 
     @Autowired
-    RegistrationEventServiceImpl registrationEventService;
+    private RegistrationEventServiceImpl registrationEventService;
 
+//@Autowired
+//private courseFeignClient courseFeignClients;
 
     @GetMapping("/")
     public ResponseEntity<List<RegistrationEventDTO>> getRegistrationAlls() {
@@ -34,7 +38,11 @@ public class RegistrationEventController {
 
         return  new ResponseEntity<>(registrationEventService.findLatestEventByStudentId(studentId),HttpStatus.OK);
     }
-
+//    @GetMapping(value = {"/service/{registrationId}"})
+//    public RegistrationEvent getRegistrationName(@PathVariable("registrationId") Long registrationId) {
+//      RegistrationEvent event=  courseFeignClients.getName(registrationId);
+//        return  event;
+//    }
     @GetMapping(value = {"/{registrationId}"})
     public ResponseEntity<RegistrationEventDTO> getRegistrationById(@PathVariable("registrationId") Long registrationId) {
 
@@ -60,5 +68,12 @@ public class RegistrationEventController {
     public ResponseEntity<RegistrationEventStudentDTO> getRegistrationByStudentId(@PathVariable("studentId") Long studentId) {
 
         return  new ResponseEntity<>(registrationEventService.getRegistrationByStudentId(studentId),HttpStatus.OK);
+    }
+
+
+    @FeignClient("EmailService")
+    interface  courseFeignClient{
+    @GetMapping("/emailservice/{serviceId}")
+        public RegistrationEvent getName(@PathVariable("serviceId") Long serviceId);
     }
 }

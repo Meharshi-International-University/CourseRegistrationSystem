@@ -8,14 +8,17 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="courseRegistrationSystem" />
+        <module name="cloudFeign" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="cloudFeign" target="17" />
       <module name="courseRegistrationSystem" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="cloudFeign" options="-parameters" />
       <module name="courseRegistrationSystem" options="-parameters" />
     </option>
   </component>
