@@ -15,9 +15,9 @@ public class CourseOfferingDTO {
     private int capacity;
     private int availableSeats;
     private Course course;
-    private List<FacultyDTO> faculties=new ArrayList<>();
-    private List<RegistrationDTO> registrations= new ArrayList<>();
-    private List<RegistrationRequestDTO> registrationRequests= new ArrayList<>();
+//    private List<FacultyDTO> faculties=new ArrayList<>();
+//    private List<RegistrationDTO> registrations= new ArrayList<>();
+//    private List<RegistrationRequestDTO> registrationRequests= new ArrayList<>();
 
     public CourseOfferingDTO() {
     }

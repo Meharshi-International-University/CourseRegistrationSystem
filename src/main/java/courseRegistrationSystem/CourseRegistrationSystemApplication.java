@@ -224,14 +224,23 @@ public class CourseRegistrationSystemApplication implements CommandLineRunner {
 
     CourseOffering decEa = new CourseOffering(30, 30, ea, dec ,"PS");
     CourseOffering decCc = new CourseOffering(30, 30, cc, dec,"UU");
-    CourseOffering decFpp = new CourseOffering(30, 30, ea, dec ,"SA");
-    CourseOffering decMpp = new CourseOffering(30, 30, ea, dec,"MY");
+    CourseOffering decFpp = new CourseOffering(30, 30, fpp, dec ,"SA");
+    CourseOffering decMpp = new CourseOffering(30, 30, mpp, dec,"MY");
+
+        CourseOffering novEa = new CourseOffering(30, 30, ea, nov ,"PS");
+        CourseOffering novCc = new CourseOffering(30, 30, cc, nov,"UU");
+        CourseOffering octFpp = new CourseOffering(30, 30, fpp, oct ,"SA");
+        CourseOffering octMpp = new CourseOffering(30, 30, mpp, oct,"MY");
 
 
         courseOfferingRepository.save(decEa);
         courseOfferingRepository.save(decCc);
         courseOfferingRepository.save(decFpp);
         courseOfferingRepository.save(decMpp);
+        courseOfferingRepository.save(novEa);
+        courseOfferingRepository.save(novCc);
+        courseOfferingRepository.save(octFpp);
+        courseOfferingRepository.save(octMpp);
 
     }
     public void saveStudentAndAddress(){
