@@ -16,25 +16,21 @@ public class RegistrationGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long registrationGroupId;
+    private String name;
 
     @OneToMany
-    @JoinColumn(name = "RegistrationGroupId")
-    @OrderColumn(name="sequence")
+   // @JoinColumn(name = "RegistrationGroupId")
     private List<Student> students= new ArrayList<>();
     @OneToMany
-    @JoinColumn(name = "RegistrationGroupId")
-    @OrderColumn(name="sequence")
+   // @JoinColumn(name = "registrationGroupId")
+   // @OrderColumn(name="sequence")
     private List<AcademicBlock> academicBlocks= new ArrayList<>();
 
     public RegistrationGroup() {
     }
 
-    public void addStudent(Student student){
-        students.add(student);
-    }
-
-    public void addAcademicBlock(AcademicBlock academicBlock){
-        academicBlocks.add(academicBlock);
+    public RegistrationGroup(String name) {
+        this.name = name;
     }
 
 }

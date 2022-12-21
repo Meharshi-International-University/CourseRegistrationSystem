@@ -14,7 +14,7 @@ public class RegistrationEventDTO {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
-    private List<RegistrationGroupDTO> registrationGroupDTOS = new ArrayList<>();
+    private List<RegistrationGroupDTO> registrationGroups = new ArrayList<>();
     private RegistrationEventStatus registrationEventStatus;
 
     public RegistrationEventDTO() {

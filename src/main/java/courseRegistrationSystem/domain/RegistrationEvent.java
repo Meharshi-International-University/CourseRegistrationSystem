@@ -34,6 +34,12 @@ public class RegistrationEvent {
         this.endDate = endDate;
     }
 
+    public RegistrationEvent(LocalDateTime startDate, LocalDateTime endDate, RegistrationEventStatus registrationEventStatus) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.registrationEventStatus = registrationEventStatus;
+    }
+
     public void addRegistrationGroup(RegistrationGroup group) {
         registrationGroups.add(group);
     }

@@ -51,7 +51,7 @@ public class EmailController {
         rgGroup1.add(new RegistrationGroupDTO(studentDTOList1,academicBlockDTOList));
         rgGroup1.add(new RegistrationGroupDTO(studentDTOList2,academicBlockDTOList));
 
-        registrationEvent.setRegistrationGroupDTOS(rgGroup1);
+        registrationEvent.setRegistrationGroups(rgGroup1);
         return new ResponseEntity<>(registrationEvent, HttpStatus.OK);
 
     }

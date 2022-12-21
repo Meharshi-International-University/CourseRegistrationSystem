@@ -23,28 +23,38 @@ public class RegistrationEventController {
     RegistrationEventServiceImpl registrationEventService;
 
 
-    @GetMapping("/latest")
+    @GetMapping("/")
     public ResponseEntity<List<RegistrationEventDTO>> getRegistrationAlls() {
-        var allRegistrations = registrationEventService.getAllRegistrationEvents();
-        RegistrationEvent event = null;
 
-        return  new ResponseEntity<>(allRegistrations, HttpStatus.OK);
+        return  new ResponseEntity<>( registrationEventService.getAllRegistrationEvents(), HttpStatus.OK);
+    }
+    @GetMapping(value = {"/latest/{studentId}"})
+    public ResponseEntity<?> getRegistrationEventsStudentByIdDec(@PathVariable("studentId") Long studentId) {
+
+        return  new ResponseEntity<>(registrationEventService.findLatestEventByStudentId(studentId),HttpStatus.OK);
     }
 
-    @GetMapping(value = {"/get/{registrationId}"})
-    public ResponseEntity<RegistrationEventDTO> getRegistrationById(@PathVariable Long registrationId) {
+    @GetMapping(value = {"/{registrationId}"})
+    public ResponseEntity<RegistrationEventDTO> getRegistrationById(@PathVariable("registrationId") Long registrationId) {
 
         return  new ResponseEntity<>(registrationEventService.getRegistrationEventBy_Id(registrationId),HttpStatus.OK);
     }
 
-    @PostMapping(value = {"/addRegistrationEvent"})
-    public ResponseEntity<RegistrationEventDTO> addNewJob(@Valid @RequestBody RegistrationEventDTO registrationEventdto) {
+    @PostMapping(value = {"/"})
+    public ResponseEntity<RegistrationEventDTO> addNewRegistrationEventJob(@Valid @RequestBody RegistrationEventDTO registrationEventdto) {
         return new ResponseEntity<>(registrationEventService.addNewRegistrationEvent(registrationEventdto),HttpStatus.OK);
     }
-    @DeleteMapping(value = {"/delete/{registrationEventId}"})
+    @DeleteMapping(value = {"/{registrationEventId}"})
     public ResponseEntity<Void> deleteRegistrationById(@PathVariable Long registrationEventId) {
         registrationEventService.deleteById(registrationEventId);
         return  new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+    @PutMapping(value = {"/{registrationId}"})
+    public ResponseEntity<RegistrationEventDTO> updateRegistrationEvent(@PathVariable("registrationId") Long registrationId,@Valid @RequestBody RegistrationEventDTO registrationEventdto) {
+        return new ResponseEntity<>(registrationEventService
+                .updateRegistrationEvent(registrationId,registrationEventdto),HttpStatus.OK);
 
+
+
+    }
 }
