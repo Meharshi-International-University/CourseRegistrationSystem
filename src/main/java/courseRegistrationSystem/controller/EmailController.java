@@ -6,6 +6,7 @@ import courseRegistrationSystem.dto.AcademicBlockDTO;
 import courseRegistrationSystem.dto.RegistrationEventDTO;
 import courseRegistrationSystem.dto.RegistrationGroupDTO;
 import courseRegistrationSystem.dto.StudentDTO;
+import courseRegistrationSystem.service.RegistrationEventService;
 import courseRegistrationSystem.service.RegistrationService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.coyote.Response;
@@ -29,12 +30,14 @@ import java.util.List;
 public class EmailController {
 
     @Autowired
-    private RegistrationService registrationService;
+    private RegistrationEventService registrationEventServiceService;
 
     @GetMapping("{registrationEventId}")
-    public ResponseEntity<?> registrationEventDetailsById(@PathVariable("registrationEventId") Long registrationEventId){
+    public ResponseEntity<?> registrationEventDetailsById(@PathVariable("registrationEventId") Long registrationEventId) {
         log.info("inside registrationEventDetailsById method of  EmailController");
-        return new ResponseEntity<>(registrationService.getRegistrationBy_Id(registrationEventId), HttpStatus.OK);
+        RegistrationEventDTO registrationEventDTO = registrationEventServiceService.getRegistrationEventBy_Id(registrationEventId);
+        System.out.println(registrationEventDTO);
+        return new ResponseEntity<>(registrationEventDTO, HttpStatus.OK);
 
     }
 }

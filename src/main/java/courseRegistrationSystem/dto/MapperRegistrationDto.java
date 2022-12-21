@@ -10,7 +10,7 @@ public class MapperRegistrationDto implements Mapper<RegistrationDTO,Registratio
     @Override
     public Registration mapTo(RegistrationDTO entity) {
         Registration dto = new Registration();
-        dto.setCourseOffering(entity.getCourseOfferingDTO());
+        dto.setCourseOffering(entity.getCourseOffering());
         dto.setStudent(entity.getStudent());
         return dto;
     }

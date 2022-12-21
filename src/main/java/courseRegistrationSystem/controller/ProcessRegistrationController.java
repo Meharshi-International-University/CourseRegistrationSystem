@@ -18,10 +18,10 @@ public class ProcessRegistrationController {
     private ProcessRegistrationService processRegistrationService;
 
     @PatchMapping("{id}")
-    public ResponseEntity<?> processRegistration(@PathVariable("id") Long id,@RequestParam("processed") boolean processed){
+    public ResponseEntity<?> processRegistration(@PathVariable("id") Long id, @RequestParam("processed") boolean processed) {
         log.info("Inside processRegistration method of ProcessRegistrationController");
-       if (processed)
-            processRegistrationService.processRegistration(id) ;
+        if (processed)
+            processRegistrationService.processRegistration(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

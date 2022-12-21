@@ -34,63 +34,65 @@ public class ProcessRegistrationServiceImpl implements ProcessRegistrationServic
 
     @Autowired
     private CourseOfferingRepository courseOfferingRepository;
+
     @Override
     public void processRegistration(Long id) {
         log.info("inside processRegistration method of ProcessRegistrationServiceImpl");
-        List<Long> requestList =registrationRequestRepository.
+        List<Long> requestList = registrationRequestRepository.
                 findGenerateSequenceNumberIdByRegistrationEventIdAndStatus(id, RegistrationRequestStatus.ONGOING);
-        while(requestList.size() > 0) {
+        while (requestList.size() > 0) {
             RegistrationRequest registrationRequest = registrationRequestRepository.
                     findByRandomIdEager(requestList.get(
                             Math.abs(new Random().nextInt(requestList.size()))));
             if (checkPrequisiteIsMet(registrationRequest.getCourseOffering().getId()) && checkAvailableSeats(registrationRequest.getCourseOffering())) {
-                    registrationRepository.save(new Registration(registrationRequest.getStudent(), registrationRequest.getCourseOffering()));
-                    registrationRequest.setStatus(RegistrationRequestStatus.COMPLETE);
+                registrationRepository.save(new Registration(registrationRequest.getStudent(), registrationRequest.getCourseOffering()));
+                registrationRequest.setStatus(RegistrationRequestStatus.COMPLETE);
 
-                    List<CourseOffering> courseOfferingListByBlock = courseOfferingRepository.
-                            findByAcademicBlock_Id(registrationRequest.getCourseOffering().getAcademicBlock().getId());
+                List<CourseOffering> courseOfferingListByBlock = courseOfferingRepository.
+                        findByAcademicBlock_Id(registrationRequest.getCourseOffering().getAcademicBlock().getId());
 
-                    courseOfferingListByBlock.forEach(courseOffering -> {
-                        registrationRequestRepository.findById(new RegistrationRequestPK(registrationRequest.getStudent(),courseOffering))
-                                .ifPresentOrElse(registrationRequest1
-                                                -> {
-                                           if( registrationRequest1.getStatus() != RegistrationRequestStatus.COMPLETE) registrationRequest1.setStatus(RegistrationRequestStatus.INVALID); },
-                                        ()
-                                                -> { throw  new RuntimeException("Not found"); });
+                courseOfferingListByBlock.forEach(courseOffering -> {
+                    registrationRequestRepository.findById(new RegistrationRequestPK(registrationRequest.getStudent(), courseOffering))
+                            .ifPresentOrElse(registrationRequest1
+                                            -> {
+                                        if (registrationRequest1.getStatus() != RegistrationRequestStatus.COMPLETE)
+                                            registrationRequest1.setStatus(RegistrationRequestStatus.INVALID);
+                                    },
+                                    ()
+                                            -> {
+                                        throw new RuntimeException("Not found");
+                                    });
 
 
-                    });
+                });
 
             } else {
                 registrationRequest.setStatus(RegistrationRequestStatus.INVALID);
             }
-            requestList =registrationRequestRepository.
+            requestList = registrationRequestRepository.
                     findGenerateSequenceNumberIdByRegistrationEventIdAndStatus(id, RegistrationRequestStatus.ONGOING);
 
         }
     }
 
-    public boolean checkAvailableSeats(CourseOffering courseOffering){
+    public boolean checkAvailableSeats(CourseOffering courseOffering) {
         log.info("inside checkAvailableSeats method of ProcessRegistrationServiceImpl");
-       if( courseOffering.getAvailableSeats() > 0 )
-       {
-           courseOffering.setAvailableSeats(courseOffering.getAvailableSeats()-1);
-           return true;
-       }
-       return  false;
+        if (courseOffering.getAvailableSeats() > 0) {
+            courseOffering.setAvailableSeats(courseOffering.getAvailableSeats() - 1);
+            return true;
+        }
+        return false;
     }
 
     @Override
     public boolean checkPrequisiteIsMet(Long courseOfferingCode) {
         log.info("inside checkPrequisiteIsMet method of ProcessRegistrationServiceImpl");
-      List<Course> prequisiteCourseList =  registrationRequestRepository.findPrequisiteByCourseOfferingId(courseOfferingCode);
-       // System.out.println(prequisiteCourseList.size());
-      if(prequisiteCourseList.size() == 0) return true;
-      for (Course course: prequisiteCourseList){
-          //System.out.println("==pre"+course.getCourseCode());
-          Course course1= registrationRepository.findCourseByCourseOfferingId(course.getId());
-          if(course1 !=null) return  true;
-      }
+        List<Course> prequisiteCourseList = registrationRequestRepository.findPrequisiteByCourseOfferingId(courseOfferingCode);
+        if (prequisiteCourseList.size() == 0) return true;
+        for (Course course : prequisiteCourseList) {
+            Course course1 = registrationRepository.findCourseByCourseOfferingId(course.getId());
+            if (course1 != null) return true;
+        }
         return false;
     }
 }

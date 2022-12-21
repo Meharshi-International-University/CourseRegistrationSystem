@@ -10,13 +10,13 @@ import lombok.Setter;
 @Setter
 public class RegistrationDTO {
     private Student student;
-    private CourseOffering courseOfferingDTO;
+    private CourseOffering courseOffering;
 
     public RegistrationDTO() {
     }
 
     public RegistrationDTO(Student student, CourseOffering courseOfferingDTO) {
         this.student = student;
-        this.courseOfferingDTO = courseOfferingDTO;
+        this.courseOffering = courseOfferingDTO;
     }
 }

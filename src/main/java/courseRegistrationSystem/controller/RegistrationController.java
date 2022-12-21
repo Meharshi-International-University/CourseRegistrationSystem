@@ -20,10 +20,10 @@ public class RegistrationController {
     private RegistrationService registrationService;
 
 
-    @GetMapping(value = {"/list"})
-    public ResponseEntity<List<RegistrationDTO>> getRegistrationAlls() {
-        var allRegistrations = registrationService.getAllRegisters();
-        return  new ResponseEntity<>(allRegistrations, HttpStatus.OK);
+    @GetMapping(value = {"/{studentId}"})
+    public ResponseEntity<?> getAllRegistrationByStudentId(@PathVariable("studentId") Long studentId) {
+
+        return  new ResponseEntity<>(registrationService.getAllCourseOfferingByStudentId(studentId), HttpStatus.OK);
     }
 
     @GetMapping(value = {"/get/{registrationId}"})
@@ -41,5 +41,11 @@ public class RegistrationController {
 //       Registration registration= registrationService.deleteById(registrationId);
 //        return  new ResponseEntity<>(,HttpStatus.NO_CONTENT);
 //    }
+
+    @GetMapping(value = {"/list"})
+    public ResponseEntity<List<RegistrationDTO>> getRegistrationAlls() {
+        var allRegistrations = registrationService.getAllRegisters();
+        return  new ResponseEntity<>(allRegistrations, HttpStatus.OK);
+    }
 
 }

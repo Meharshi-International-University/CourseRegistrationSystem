@@ -1,5 +1,8 @@
 package courseRegistrationSystem.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,12 +15,14 @@ public class Registration {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long registrationId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "studentId")
     private Student student;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "courseOfferingId")
+   // @JsonIgnoreProperties("registrations")
+    @JsonBackReference(value = "registrations")
     private CourseOffering courseOffering;
 
     public Registration( Student student, CourseOffering courseOffering) {
