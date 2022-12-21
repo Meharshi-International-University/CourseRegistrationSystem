@@ -6,17 +6,19 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Setter
 @Getter
 public class AcademicBlockDTO {
-
+    private Long id;
     private String blockCode;
     private String name;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     @Enumerated
     private Semester semester;
+    List<CourseOfferingDTO> courseOfferings ;
 
     public AcademicBlockDTO() {
     }

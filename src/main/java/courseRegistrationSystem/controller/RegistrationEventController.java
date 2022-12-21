@@ -4,6 +4,7 @@ import courseRegistrationSystem.domain.Registration;
 import courseRegistrationSystem.domain.RegistrationEvent;
 import courseRegistrationSystem.dto.RegistrationDTO;
 import courseRegistrationSystem.dto.RegistrationEventDTO;
+import courseRegistrationSystem.dto.RegistrationEventStudentDTO;
 import courseRegistrationSystem.service.RegistrationService;
 import courseRegistrationSystem.service.impl.RegistrationEventServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +55,10 @@ public class RegistrationEventController {
         return new ResponseEntity<>(registrationEventService
                 .updateRegistrationEvent(registrationId,registrationEventdto),HttpStatus.OK);
 
+    }
+    @GetMapping(value = {"/student/{studentId}"})
+    public ResponseEntity<RegistrationEventStudentDTO> getRegistrationByStudentId(@PathVariable("studentId") Long studentId) {
 
-
+        return  new ResponseEntity<>(registrationEventService.getRegistrationByStudentId(studentId),HttpStatus.OK);
     }
 }

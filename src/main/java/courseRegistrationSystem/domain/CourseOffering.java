@@ -36,9 +36,9 @@ public class CourseOffering {
     @OneToMany(mappedBy = "courseOffering")
     @OrderColumn(name="sequence")
     private List<RegistrationRequest> registrationRequests= new ArrayList<>();
-    @OneToOne
+    @ManyToOne
     private AcademicBlock academicBlock;
-
+    @Transient
     private String facultyInitials;
 
 
