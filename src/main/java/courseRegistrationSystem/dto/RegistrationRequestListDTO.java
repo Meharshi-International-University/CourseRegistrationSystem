@@ -13,6 +13,8 @@ public class RegistrationRequestListDTO {
 
     private Long studentId;
 
+    private Long registrationEventId;
+
     @Valid
     private List<RegistrationRequestDTO> registrationRequestDTOList;
 }

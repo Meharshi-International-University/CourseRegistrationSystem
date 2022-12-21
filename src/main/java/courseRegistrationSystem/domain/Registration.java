@@ -1,15 +1,12 @@
 package courseRegistrationSystem.domain;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @Entity
-@Getter
-@Setter
+@Data
 @ToString
+@NoArgsConstructor
 public class Registration {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,15 +17,13 @@ public class Registration {
     private Student student;
 
     @ManyToOne
-    @JoinColumn(name = "reg_courseOfferingId")
+    @JoinColumn(name = "courseOfferingId")
     private CourseOffering courseOffering;
-
-    public Registration() {
-
-    }
 
     public Registration( Student student, CourseOffering courseOffering) {
         this.student = student;
         this.courseOffering = courseOffering;
     }
+
+
 }

@@ -42,26 +42,6 @@ public class RegistrationRequestController {
 
     }
 
-    @PutMapping("{id}")
-    public ResponseEntity<?> updateRegistrationRequest(@PathVariable("id") Long id,@RequestBody RegistrationRequestDTO registrationRequest){
-        log.info("Inside updateRegistrationRequest method of RegistrationRequestController");
-
-        try {
-            registrationRequestService.updateRegistrationRequest(id,registrationRequest);
-        }catch (Exception e){
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return new ResponseEntity<>(HttpStatus.OK);
-
-    }
-
-    @DeleteMapping("{id}")
-    public ResponseEntity<?> deleteRegistrationRequest(@PathVariable("id") Long id){
-        log.info("Inside deleteRegistrationRequest method of RegistrationRequestController");
-        registrationRequestService.deleteRegistrationRequest(id);
-        return new ResponseEntity<>(HttpStatus.OK);
-
-    }
 
     @GetMapping("{id}")
     public ResponseEntity<?> getRegistrationRequest(@PathVariable("id") Long id){
