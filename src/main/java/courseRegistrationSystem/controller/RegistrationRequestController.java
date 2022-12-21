@@ -34,7 +34,7 @@ public class RegistrationRequestController {
     public ResponseEntity<?> saveRegistrationRequests(@Validated @RequestBody RegistrationRequestListDTO registrationRequestListDTO){
         log.info("Inside saveRegistrationRequests method of RegistrationRequestController");
         try {
-            //registrationRequestService.saveRegistrationRequests(registrationRequestListDTO.getStudentId(),registrationRequestListDTO);
+            registrationRequestService.saveRegistrationRequests(registrationRequestListDTO.getStudentId(),registrationRequestListDTO);
         }catch (Exception e){
             return new ResponseEntity<>(e.getLocalizedMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
         }
