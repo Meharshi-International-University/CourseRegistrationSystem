@@ -16,10 +16,12 @@ import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @SpringBootApplication
@@ -114,10 +116,6 @@ public class CourseRegistrationSystemApplication implements CommandLineRunner {
         fallMppAcademicB.add(getAcademicBlockById(3l));
 
 
-
-
-
-
 //        fallFppAcademicB.add(getAcademicBlockById(3l));
 //        fallFppAcademicB.add(getAcademicBlockById(4l));
 //        fallFppAcademicB.add(getAcademicBlockById(5l))
@@ -192,10 +190,17 @@ public class CourseRegistrationSystemApplication implements CommandLineRunner {
         Course mpp = new Course("CS401","MPP","desc1");
         Course cc = new Course("CS516","Cloud Computing","desc1");
         Course ea = new Course("CS544","Enterprise Architecture","desc1");
+        Course dbms = new Course("CS425","DataBaseManagementSystem","desc");
+        Course wap = new Course("CS455","WebApplicationProgramming","desc1");
+        ea.setPrerequisite(Arrays.asList(dbms,wap));
+
          courseRepository.save(fpp);
         courseRepository.save(mpp);
         courseRepository.save(cc);
+        courseRepository.save(dbms);
+        courseRepository.save(wap);
         courseRepository.save(ea);
+
 
         AcademicBlock dec = new AcademicBlock("12A-12D","Dec 2022", LocalDateTime.of(LocalDate.of(2022,12,1), LocalTime.MIDNIGHT),
                 LocalDateTime.of(LocalDate.of(2022,12,30),LocalTime.MIDNIGHT));
