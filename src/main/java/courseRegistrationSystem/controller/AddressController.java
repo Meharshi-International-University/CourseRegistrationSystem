@@ -1,12 +1,12 @@
 package courseRegistrationSystem.controller;
 
-import courseRegistrationSystem.domain.CourseOffering;
-import courseRegistrationSystem.domain.Faculty;
-import courseRegistrationSystem.dto.CourseOfferingDTO;
-import courseRegistrationSystem.dto.FacultyDTO;
+import courseRegistrationSystem.domain.Address;
+import courseRegistrationSystem.domain.Student;
+import courseRegistrationSystem.dto.AddressDTO;
+import courseRegistrationSystem.dto.StudentDTO;
 import courseRegistrationSystem.exception.CustomErrorType;
-import courseRegistrationSystem.service.CourseOfferingService;
-import courseRegistrationSystem.service.FacultyService;
+import courseRegistrationSystem.service.AddressService;
+import courseRegistrationSystem.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,35 +15,34 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+///@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping(value = { "/courseOfferings"})
-public class CourseOfferingController {
+@RequestMapping(value = { "/address"})
+public class AddressController {
 
     @Autowired
-    private CourseOfferingService courseOfferingService;
+    private AddressService addressService;
 
 
-//    @GetMapping(value = {"/list"})
-//    public ResponseEntity<List<CourseOfferingDTO>> getRegistrationAlls() {
-//        var allCourseOffering = courseOfferingService.getAllCourseOfferings();
-//        return new ResponseEntity<>(allCourseOffering, HttpStatus.OK);
-//    }
+    @GetMapping(value = {"/list"})
+    public ResponseEntity<List<AddressDTO>> getAllAddress() {
+        return new ResponseEntity<>(addressService.getAllAddress(), HttpStatus.OK);
+    }
 
-    @GetMapping(value = {"/get/{offeringId}"})
-    public ResponseEntity<CourseOfferingDTO> getCourseOfferingyId(@PathVariable Long offeringId) {
-        var checkId= courseOfferingService.getCourseOfferingBy_Id(offeringId);
+    @GetMapping(value = {"/get/{addressId}"})
+    public ResponseEntity<AddressDTO> getRegistrationById(@PathVariable Long addressId) {
+        var checkId= addressService.getAddressBy_Id(addressId);
 
         if (checkId == null) {
             new ResponseEntity<CustomErrorType>
-                    (new CustomErrorType("Contact with firstname= " + offeringId + " is not available"), HttpStatus.NOT_FOUND);
+                    (new CustomErrorType("Contact with firstname= " + addressId + " is not available"), HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(checkId, HttpStatus.OK);
     }
 
-    @PostMapping(value = {"/addRegistration"})
-    public ResponseEntity<CourseOfferingDTO> addNewCourseOffering(@Valid @RequestBody CourseOffering courseOffering) {
-        return new ResponseEntity<>( courseOfferingService.addNewCourseOffering(courseOffering), HttpStatus.OK);
+    @PostMapping(value = {"/addAddress"})
+    public ResponseEntity<AddressDTO> addNewRegistration(@Valid @RequestBody Address address) {
+        return new ResponseEntity<>(addressService.addNewAddress(address), HttpStatus.OK);
     }
 
 //    @PutMapping(value = {"/updateRegistration"})

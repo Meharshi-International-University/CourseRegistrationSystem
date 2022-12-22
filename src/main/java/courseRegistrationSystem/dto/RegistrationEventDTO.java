@@ -1,6 +1,5 @@
 package courseRegistrationSystem.dto;
 
-import courseRegistrationSystem.enums.RegistrationEventStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,8 +13,8 @@ public class RegistrationEventDTO {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
-    private List<RegistrationGroupDTO> registrationGroupDTOS = new ArrayList<>();
-    private RegistrationEventStatus registrationEventStatus;
+   // private List<RegistrationGroupDTO> registrationGroupDTOS = new ArrayList<>();
+    private RegistrationGroupDTO registrationGroupDTO;
 
     public RegistrationEventDTO() {
     }

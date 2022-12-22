@@ -15,8 +15,9 @@ public class Student {
     private String email;
     @OneToOne(cascade =CascadeType.PERSIST)
     private Address mailAddress;
-    @OneToOne
+    @OneToOne(cascade =CascadeType.PERSIST)
     private Address homeAddress;
+
 
     public Student(String studentId, String name, String email, Address mailAddress, Address homeAddress) {
         this.studentId = studentId;

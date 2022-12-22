@@ -1,6 +1,5 @@
 package courseRegistrationSystem.domain;
 
-import courseRegistrationSystem.enums.RegistrationEventStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,11 +19,9 @@ public class RegistrationEvent {
     private Long id;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
-    @ManyToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinTable
     private List<RegistrationGroup> registrationGroups =new ArrayList<>();
-    @Enumerated
-    private RegistrationEventStatus registrationEventStatus;
 
     public RegistrationEvent() {
     }

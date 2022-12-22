@@ -12,26 +12,39 @@ public class RegistrationGroupDTO {
 
 
     private Long registrationGroupId;
-    private List<StudentDTO> studentDTOS = new ArrayList<>();
-    private List<AcademicBlockDTO> acadamicBlockDTOS = new ArrayList<>();
+    //private List<StudentDTO> students ;
+    private List<AcademicBlockDTO> academicBlocks ;
 
     public RegistrationGroupDTO() {
     }
 
     public RegistrationGroupDTO(Long registrationGroupId, List<StudentDTO> studentDTOS, List<AcademicBlockDTO> acadamicBlockDTOS) {
         this.registrationGroupId = registrationGroupId;
-        this.studentDTOS = studentDTOS;
-        this.acadamicBlockDTOS = acadamicBlockDTOS;
+       // this.students = studentDTOS;
+        this.academicBlocks = acadamicBlockDTOS;
     }
 
-    public void addStudentDTO(StudentDTO studentDTO){
-        studentDTOS.add(studentDTO);
+    public Long getRegistrationGroupId() {
+        return registrationGroupId;
     }
 
-    public void addAcademicBlockDTO(AcademicBlockDTO acadamicBlockDTO){
-        acadamicBlockDTOS.add(acadamicBlockDTO);
+    public void setRegistrationGroupId(Long registrationGroupId) {
+        this.registrationGroupId = registrationGroupId;
     }
 
+//    public List<StudentDTO> getStudents() {
+//        return students;
+//    }
+//
+//    public void setStudents(List<StudentDTO> students) {
+//        this.students = students;
+//    }
 
+    public List<AcademicBlockDTO> getAcademicBlocks() {
+        return academicBlocks;
+    }
 
+    public void setAcademicBlocks(List<AcademicBlockDTO> academicBlocks) {
+        this.academicBlocks = academicBlocks;
+    }
 }

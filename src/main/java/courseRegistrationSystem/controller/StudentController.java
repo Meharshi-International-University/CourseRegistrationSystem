@@ -25,13 +25,13 @@ public class StudentController {
 
 
     @GetMapping(value = {"/list"})
-    public ResponseEntity<List<StudentDTO>> getRegistrationAlls() {
+    public ResponseEntity<List<StudentDTO>> getAllStudents() {
         var allStudents = studentService.getAllStudents();
         return new ResponseEntity<>(allStudents, HttpStatus.OK);
     }
 
     @GetMapping(value = {"/get/{studentId}"})
-    public ResponseEntity<StudentDTO> getRegistrationById(@PathVariable Long studentId) {
+    public ResponseEntity<StudentDTO> getStudentById(@PathVariable Long studentId) {
         var checkId= studentService.getStudentBy_Id(studentId);
 
         if (checkId == null) {
@@ -42,7 +42,7 @@ public class StudentController {
     }
 
     @PostMapping(value = {"/addStudent"})
-    public ResponseEntity<StudentDTO> addNewRegistration(@Valid @RequestBody Student student) {
+    public ResponseEntity<StudentDTO> addNewStudent(@Valid @RequestBody Student student) {
         return new ResponseEntity<>(studentService.addNewStudent(student), HttpStatus.OK);
     }
 

@@ -1,8 +1,6 @@
-package courseRegistrationSystem.enums;
-
-public enum RegistrationEventStatus {
-
-    OPEN,
-    CLOSED,
-    PROGRESS
-}
+//package courseRegistrationSystem.enums;
+//
+//public enum RegistrationEventStatus {
+//
+//    CLOSED,OPEN,PROGRESS
+//}

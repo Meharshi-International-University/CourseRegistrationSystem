@@ -1,6 +1,6 @@
 package courseRegistrationSystem.dto;
 
-import courseRegistrationSystem.enums.Semester;
+
 import jakarta.persistence.Enumerated;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,8 +15,8 @@ public class AcademicBlockDTO {
     private String name;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
-    @Enumerated
-    private Semester semester;
+//    @Enumerated
+//    private Semester semester;
 
     public AcademicBlockDTO() {
     }

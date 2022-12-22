@@ -2,14 +2,16 @@ package courseRegistrationSystem.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 public class StudentDTO {
     private String studentId;
     private String name;
-    private AddressDTO mailAddressDTO;
-    private AddressDTO homeAddressDTO;
+    private AddressDTO mailAddress;
+    private AddressDTO homeAddress;
 
     public StudentDTO() {
     }
@@ -17,7 +19,7 @@ public class StudentDTO {
     public StudentDTO(String studentId, String name, AddressDTO mailAddressDTO, AddressDTO homeAddressDTO) {
         this.studentId = studentId;
         this.name = name;
-        this.mailAddressDTO = mailAddressDTO;
-        this.homeAddressDTO = homeAddressDTO;
+        this.mailAddress = mailAddressDTO;
+        this.homeAddress = homeAddressDTO;
     }
 }

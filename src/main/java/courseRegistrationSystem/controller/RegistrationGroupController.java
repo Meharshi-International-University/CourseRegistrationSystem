@@ -23,7 +23,6 @@ public class RegistrationGroupController {
     @Autowired
     private RegistrationGroupService groupService;
 
-
     @GetMapping(value = {"/list"})
     public ResponseEntity<List<RegistrationGroupDTO>> getAllRegistrationGroups() {
         var allGroups = groupService.getAllRegistrationGroups();

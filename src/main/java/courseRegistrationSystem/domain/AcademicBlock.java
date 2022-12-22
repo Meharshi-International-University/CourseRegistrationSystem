@@ -1,7 +1,7 @@
 package courseRegistrationSystem.domain;
 
 
-import courseRegistrationSystem.enums.Semester;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,20 +19,21 @@ public class AcademicBlock {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String blockCode;
-    private String name;
+    private String semester;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
-    @OneToMany(mappedBy = "academicBlock")
+    @OneToMany()
     @OrderColumn(name="sequence")
+    @JsonIgnoreProperties("academicBlock")
 private List<CourseOffering> courseOfferings;
     public String getBlockName(){
-        return this.name;
+        return this.semester;
     }
-    @Enumerated
-    private Semester semester;
-    public AcademicBlock(String blockCode, String name, LocalDateTime startDate, LocalDateTime endDate) {
+//    @Enumerated
+//    private Semester semester;
+    public AcademicBlock(String blockCode, String semester, LocalDateTime startDate, LocalDateTime endDate) {
         this.blockCode = blockCode;
-        this.name = name;
+        this.semester = semester;
         this.startDate = startDate;
         this.endDate = endDate;
     }
