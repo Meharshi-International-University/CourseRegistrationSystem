@@ -1,8 +1,6 @@
 package courseRegistrationSystem.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import courseRegistrationSystem.domain.pk.GenerateSequenceNumber;
 import courseRegistrationSystem.domain.pk.RegistrationRequestPK;
 import courseRegistrationSystem.enums.RegistrationRequestStatus;
 import jakarta.persistence.*;
@@ -37,15 +35,11 @@ public class RegistrationRequest {
     private RegistrationRequestStatus status = RegistrationRequestStatus.ONGOING;
 
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private GenerateSequenceNumber randomId;
-
     public RegistrationRequest(int priorityNumber, Student student, CourseOffering courseOffering, RegistrationEvent registrationEvent) {
         this.priorityNumber = priorityNumber;
         this.student = student;
         this.courseOffering = courseOffering;
         this.registrationEvent = registrationEvent;
-        this.randomId = new GenerateSequenceNumber();
     }
 
 

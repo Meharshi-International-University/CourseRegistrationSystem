@@ -16,6 +16,7 @@ import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+
 import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -28,6 +29,7 @@ import java.util.List;
 @Slf4j
 @EnableKafka
 @EnableScheduling
+
 public class CourseRegistrationSystemApplication implements CommandLineRunner {
 
 

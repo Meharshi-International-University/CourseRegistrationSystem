@@ -43,11 +43,11 @@ public class RegistrationRequestListValidator implements Validator {
         ValidationUtils.rejectIfEmpty(errors, "studentId", "studentId.errors", "Student Id is required");
         ValidationUtils.rejectIfEmpty(errors, "registrationEventId", "registrationEventId.errors", "Registration Event Id is required");
 
-        registrationRequestListDTO.getRegistrationRequestDTOList().stream()
+        registrationRequestListDTO.getRegistrationRequestDTOList().stream().map(registrationRequestDTO -> registrationRequestDTO.getCourseOfferringCode())
                 .dropWhile(new HashSet<>()::add)
                 .findFirst()
                 .ifPresent(dup -> {
-                   throw new IllegalArgumentException("Duplicate Course Offerring Found: " + dup.getCourseOfferringId());
+                   throw new IllegalArgumentException("Duplicate Course Offerring Found: " + dup);
                 });
 
         registrationEventService.getRegistrationEventBy_Id(registrationRequestListDTO.getRegistrationEventId());

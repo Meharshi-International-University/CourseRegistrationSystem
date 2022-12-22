@@ -7,10 +7,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface CourseOfferingRepository extends JpaRepository<CourseOffering,Long> {
-    CourseOffering findByCourseOfferingCode(String courseOfferingCode);
+    Optional<CourseOffering> findByCourseOfferingCode(String courseOfferingCode);
 
     List<CourseOffering> findByAcademicBlock_Id(Long id);
 

@@ -43,40 +43,19 @@ public class RegistrationRequestServiceImpl implements RegistrationRequestServic
         Student oStudent = studentRepository.findById(studentId).orElseThrow(()->new RuntimeException("Student  Not Found"));
         RegistrationEvent oRegistrationEvent = registrationEventRepository.findById(registrationRequestDtos.getRegistrationEventId()).orElseThrow(()->new RuntimeException("Event Not Found"));
         List<RegistrationRequest> registrationRequestList=   registrationRequestDtos.getRegistrationRequestDTOList().stream().map(registrationRequestDTO -> {
-            CourseOffering oCourseOffering = courseOfferingRepository.findById(registrationRequestDTO.getCourseOfferringId()).orElseThrow(()-> new RuntimeException("Course Offering Not Found"));
+            CourseOffering oCourseOffering = courseOfferingRepository.findByCourseOfferingCode(registrationRequestDTO.getCourseOfferringCode()).orElseThrow(()-> new RuntimeException("Course Offering Not Found"));
             return new RegistrationRequest(registrationRequestDTO.getPriorityNumber(),oStudent,oCourseOffering,oRegistrationEvent);
         }).collect(Collectors.toList());
         registrationRequestRepository.saveAll(registrationRequestList);
     }
 
 
-    @Override
-    public void updateRegistrationRequest(Long id,RegistrationRequestDTO registrationRequestDto)  {
-        log.info("Inside  updateRegistrationRequest method of RegistrationServiceImpl");
-
-//        Student oStudent = studentRepository.findByStudentId(registrationRequestDto.getStudentId());
-//        CourseOffering oCourseOffering = courseOfferingRepository.findByCourseOfferingCode(registrationRequestDto.getCourseOfferingCode());
-
-
-//        RegistrationRequest oRegistrationRequest = registrationRequestRepository.f(id).orElseThrow(() ->
-//                new RuntimeException("Registration Request Not Found "));
-//
-//        registrationRequestRepository.save(oRegistrationRequest);
-
-    }
-
-    @Override
-    public void deleteRegistrationRequest(Long id) {
-        log.info("Inside  deleteRegistrationRequest method of RegistrationServiceImpl");
-       // registrationRequestRepository.deleteById(id);
-    }
 
     @Override
     public RegistrationRequest getRegistrationRequest(Long id) {
-        log.info("Inside  getRegistrationRequest method of RegistrationServiceImpl");
-        //return registrationRequestRepository.findById(id).orElseThrow(()->new RuntimeException("Registration Request Not Found"));
-    return  registrationRequestRepository.findByRandomIdEager(id);
+        return null;
     }
+
 
     @Override
     public List<RegistrationRequest> getRegistrationRequestByStudent(Long studentId) {

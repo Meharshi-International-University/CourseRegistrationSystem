@@ -12,16 +12,16 @@ import java.util.Optional;
 
 @Repository
 public interface RegistrationRequestRepository extends JpaRepository<RegistrationRequest, RegistrationRequestPK> {
-    @Query("select r from RegistrationRequest r  where r.randomId.id=:id")
-    RegistrationRequest findByRandomIdEager(Long id);
 
     List<RegistrationRequest> findByStudentId(Long studentId);
 
-    @Query("select r.randomId.id from RegistrationRequest r where r.registrationEvent.id=:id and r.status=:status")
-    List<Long> findGenerateSequenceNumberIdByRegistrationEventIdAndStatus(Long id, RegistrationRequestStatus status);
+    @Query("select r from RegistrationRequest r where r.registrationEvent.id=:id and r.status=:status")
+    List<RegistrationRequest> findGenerateSequenceNumberIdByRegistrationEventIdAndStatus(Long id, RegistrationRequestStatus status);
     @Query("select r.courseOffering.course.prerequisite from RegistrationRequest r where r.courseOffering.id=:courseOfferingId ")
     List<Course> findPrequisiteByCourseOfferingId(Long courseOfferingId);
 
     Optional<RegistrationRequest> findByStudentAndCourseOfferingAndStatusNot(Student student, CourseOffering courseOffering, RegistrationRequestStatus status);
 
+    @Query("select r from RegistrationRequest r  where r.student.id=:studentId and r.courseOffering.id=:courseOfferingId")
+    RegistrationRequest findByIdEager(Long studentId,Long courseOfferingId);
 }
