@@ -41,14 +41,15 @@ public class ProcessRegistrationServiceImpl implements ProcessRegistrationServic
     @Override
     public void processRegistration(Long id) {
         log.info("inside processRegistration method of ProcessRegistrationServiceImpl");
-        registrationEventRepository.findById(id).orElseThrow(()-> new RuntimeException("Event Found Not Found"));
-        List<Long> requestList = registrationRequestRepository.
+        registrationEventRepository.findById(id).orElseThrow(()-> new RuntimeException("Event Found Not Found")).setRegistrationEventStatus(RegistrationEventStatus.CLOSED);
+        List<RegistrationRequest> requestList = registrationRequestRepository.
                 findGenerateSequenceNumberIdByRegistrationEventIdAndStatus(id, RegistrationRequestStatus.ONGOING);
 
         while (requestList.size() > 0) {
+            RegistrationRequest selectedValue = requestList.get(
+                    Math.abs(new Random().nextInt(requestList.size())));
             RegistrationRequest registrationRequest = registrationRequestRepository.
-                    findByRandomIdEager(requestList.get(
-                            Math.abs(new Random().nextInt(requestList.size()))));
+                    findByIdEager(selectedValue.getStudent().getId(),selectedValue.getCourseOffering().getId());
             if (checkPrequisiteIsMet(registrationRequest.getCourseOffering().getId()) && checkAvailableSeats(registrationRequest.getCourseOffering())) {
                 registrationRepository.save(new Registration(registrationRequest.getStudent(), registrationRequest.getCourseOffering()));
                 registrationRequest.setStatus(RegistrationRequestStatus.COMPLETE);

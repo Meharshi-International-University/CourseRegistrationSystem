@@ -16,10 +16,10 @@ public class RegistrationGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long registrationGroupId;
+    @Column(unique=true)
     private String name;
 
     @OneToMany
-   // @JoinColumn(name = "RegistrationGroupId")
     private List<Student> students= new ArrayList<>();
     @OneToMany
    // @JoinColumn(name = "registrationGroupId")

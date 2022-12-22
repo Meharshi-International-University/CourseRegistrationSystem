@@ -36,7 +36,6 @@ public class EmailController {
     public ResponseEntity<?> registrationEventDetailsById(@PathVariable("registrationEventId") Long registrationEventId) {
         log.info("inside registrationEventDetailsById method of  EmailController");
         RegistrationEventDTO registrationEventDTO = registrationEventServiceService.getRegistrationEventBy_Id(registrationEventId);
-        System.out.println(registrationEventDTO);
         return new ResponseEntity<>(registrationEventDTO, HttpStatus.OK);
 
     }

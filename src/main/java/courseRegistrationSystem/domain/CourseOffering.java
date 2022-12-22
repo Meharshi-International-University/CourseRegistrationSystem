@@ -23,10 +23,11 @@ public class CourseOffering {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique=true)
     private String courseOfferingCode;
     private int capacity;
     private int availableSeats;
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Course course;
     @OneToOne
     private Faculty faculty;

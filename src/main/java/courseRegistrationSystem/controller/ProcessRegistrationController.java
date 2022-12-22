@@ -22,6 +22,6 @@ public class ProcessRegistrationController {
         log.info("Inside processRegistration method of ProcessRegistrationController");
         if (processed)
             processRegistrationService.processRegistration(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>("Process Completed",HttpStatus.OK);
     }
 }

@@ -102,7 +102,7 @@ public class RegistrationEventServiceImpl implements RegistrationEventService {
         registrationEvent.setRegistrationGroups(registrationEventDTO
                 .getRegistrationGroups().stream()
                 .map(r->{
-                    return registrationGroupRepository.findById(r.getRegistrationGroupId())
+                    return registrationGroupRepository.findByName(r.getName())
                             .orElseThrow(()->new RuntimeException("RegistrationGroup not found"));
 
                 }).collect(Collectors.toList()));

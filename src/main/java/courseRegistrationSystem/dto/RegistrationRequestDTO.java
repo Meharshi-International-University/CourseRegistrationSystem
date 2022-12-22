@@ -14,5 +14,5 @@ public class RegistrationRequestDTO {
 
     private int priorityNumber;
 
-    private Long courseOfferringId;
+    private String courseOfferringCode;
 }
