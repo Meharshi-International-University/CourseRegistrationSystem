@@ -35,11 +35,16 @@ public class ProcessRegistrationServiceImpl implements ProcessRegistrationServic
     @Autowired
     private CourseOfferingRepository courseOfferingRepository;
 
+    @Autowired
+    private  RegistrationEventRepository registrationEventRepository;
+
     @Override
     public void processRegistration(Long id) {
         log.info("inside processRegistration method of ProcessRegistrationServiceImpl");
+        registrationEventRepository.findById(id).orElseThrow(()-> new RuntimeException("Event Found Not Found"));
         List<Long> requestList = registrationRequestRepository.
                 findGenerateSequenceNumberIdByRegistrationEventIdAndStatus(id, RegistrationRequestStatus.ONGOING);
+
         while (requestList.size() > 0) {
             RegistrationRequest registrationRequest = registrationRequestRepository.
                     findByRandomIdEager(requestList.get(
