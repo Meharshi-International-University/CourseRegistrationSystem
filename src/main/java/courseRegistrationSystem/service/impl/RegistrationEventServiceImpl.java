@@ -8,9 +8,11 @@ import courseRegistrationSystem.dto.CourseOfferingDTO;
 import courseRegistrationSystem.dto.RegistrationDTO;
 import courseRegistrationSystem.dto.RegistrationEventDTO;
 import courseRegistrationSystem.dto.RegistrationEventStudentDTO;
+import courseRegistrationSystem.enums.RegistrationRequestStatus;
 import courseRegistrationSystem.repository.CourseOfferingRepository;
 import courseRegistrationSystem.repository.RegistrationEventRepository;
 import courseRegistrationSystem.repository.RegistrationGroupRepository;
+import courseRegistrationSystem.repository.RegistrationRepository;
 import courseRegistrationSystem.service.RegistrationEventService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,10 @@ public class RegistrationEventServiceImpl implements RegistrationEventService {
 
     @Autowired
     private RegistrationGroupRepository registrationGroupRepository;
+
+
+    @Autowired
+    private RegistrationRepository registrationRepository;
     @Override
     public List<RegistrationEventDTO> getAllRegistrationEvents() {
         return registrationEventRepository.findAll().stream()
@@ -57,9 +63,24 @@ public class RegistrationEventServiceImpl implements RegistrationEventService {
             registrationGroupAcademicDTO.getAcademicBlocks().stream().map(academicBlockDTO -> {
 //              List<CourseOfferingDTO> courseOfferingDTOList = courseOfferingRepository.findByAcademicBlock_Id(academicBlockDTO.getId()).stream()
 //                        .map(courseOffering -> modelMapper.map(courseOffering,CourseOfferingDTO.class)).collect(Collectors.toList());
-//
+
           academicBlockDTO.setCourseOfferings(courseOfferingRepository.findByAcademicBlock_Id(academicBlockDTO.getId()).stream()
-                        .map(courseOffering -> modelMapper.map(courseOffering,CourseOfferingDTO.class)).collect(Collectors.toList()));
+                        .map(courseOffering ->
+                        {
+                           CourseOfferingDTO courseOfferingDTO = modelMapper.map(courseOffering,CourseOfferingDTO.class);
+                           registrationRepository.findByCourseOfferingAndStudent(courseOffering.getId(),studentId)
+                                   .ifPresentOrElse(courseOffering1
+                                                   -> {
+                                               courseOfferingDTO.setSelected(true);
+                                           },
+                                           ()
+                                                   -> {
+                                               courseOfferingDTO.setSelected(false);
+                                           });;
+                           return courseOfferingDTO;
+                        })
+                  .collect(Collectors.toList()));
+
                 return academicBlockDTO;
             }).collect(Collectors.toList());
             return  registrationGroupAcademicDTO;

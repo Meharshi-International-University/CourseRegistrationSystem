@@ -18,7 +18,7 @@ public class CourseOfferingDTO {
 //    private List<FacultyDTO> faculties=new ArrayList<>();
 //    private List<RegistrationDTO> registrations= new ArrayList<>();
 //    private List<RegistrationRequestDTO> registrationRequests= new ArrayList<>();
-
+    private boolean selected = true;
     public CourseOfferingDTO() {
     }
 
