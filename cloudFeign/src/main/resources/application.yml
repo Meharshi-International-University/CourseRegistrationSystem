@@ -1,7 +1,8 @@
 #SPRING PROPERTIES
 spring:
-  application:
-    name: CourseRegistrationSystem
+  spring:
+    application:
+     name: CourseRegistrationSystem
   kafka:
     bootstrap-servers: localhost:9092
     producer:
@@ -21,8 +22,10 @@ spring:
 
 eureka:
   client:
-    service-url:
-        defaultZone: http://localhost:8761/eureka/
+    registerWithEureka: false #telling the server not to register himself
+    fetchRegistry: false
+#    service-url:
+#        defaultZone: http://localhost:8761/eureka/
 server:
-  port: 8080
+  port: 8761
 

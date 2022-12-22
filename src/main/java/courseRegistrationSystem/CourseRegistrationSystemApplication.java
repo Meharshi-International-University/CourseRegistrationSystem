@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.kafka.annotation.EnableKafka;
@@ -28,6 +30,8 @@ import java.util.List;
 @Slf4j
 @EnableKafka
 @EnableScheduling
+@EnableDiscoveryClient
+@EnableFeignClients
 public class CourseRegistrationSystemApplication implements CommandLineRunner {
 
 
@@ -81,7 +85,7 @@ public class CourseRegistrationSystemApplication implements CommandLineRunner {
      saveAddress();
      saveStudentAndAddress();
      saveCourseDetails();
-     saveRegistrationEvent();
+     //saveRegistrationEvent();
 
 
     }
@@ -146,7 +150,7 @@ public class CourseRegistrationSystemApplication implements CommandLineRunner {
         registrationGroupRepository.save(fallFPP);
         registrationGroupRepository.save(fallMPP);
         registrationGroupRepository.save(springFPP);
-        registrationGroupRepository.save(springMPP);
+       registrationGroupRepository.save(springMPP);
 
         RegistrationEvent event= new RegistrationEvent
                 (LocalDateTime.of(LocalDate.of(2022,10,20),LocalTime.now()),
