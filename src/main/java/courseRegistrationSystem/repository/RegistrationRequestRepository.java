@@ -16,7 +16,7 @@ public interface RegistrationRequestRepository extends JpaRepository<Registratio
     List<RegistrationRequest> findByStudentId(Long studentId);
 
     @Query("select r from RegistrationRequest r where r.registrationEvent.id=:id and r.status=:status")
-    List<RegistrationRequest> findGenerateSequenceNumberIdByRegistrationEventIdAndStatus(Long id, RegistrationRequestStatus status);
+    List<RegistrationRequest> findRegistrationRequestByRegistrationEventIdAndStatus(Long id, RegistrationRequestStatus status);
     @Query("select r.courseOffering.course.prerequisite from RegistrationRequest r where r.courseOffering.id=:courseOfferingId ")
     List<Course> findPrequisiteByCourseOfferingId(Long courseOfferingId);
 

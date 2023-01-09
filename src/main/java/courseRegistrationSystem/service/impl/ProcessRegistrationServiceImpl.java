@@ -43,7 +43,7 @@ public class ProcessRegistrationServiceImpl implements ProcessRegistrationServic
         log.info("inside processRegistration method of ProcessRegistrationServiceImpl");
         registrationEventRepository.findById(id).orElseThrow(()-> new RuntimeException("Event Found Not Found")).setRegistrationEventStatus(RegistrationEventStatus.CLOSED);
         List<RegistrationRequest> requestList = registrationRequestRepository.
-                findGenerateSequenceNumberIdByRegistrationEventIdAndStatus(id, RegistrationRequestStatus.ONGOING);
+                findRegistrationRequestByRegistrationEventIdAndStatus(id, RegistrationRequestStatus.ONGOING);
 
         while (requestList.size() > 0) {
             RegistrationRequest selectedValue = requestList.get(
@@ -76,7 +76,7 @@ public class ProcessRegistrationServiceImpl implements ProcessRegistrationServic
                 registrationRequest.setStatus(RegistrationRequestStatus.INVALID);
             }
             requestList = registrationRequestRepository.
-                    findGenerateSequenceNumberIdByRegistrationEventIdAndStatus(id, RegistrationRequestStatus.ONGOING);
+                    findRegistrationRequestByRegistrationEventIdAndStatus(id, RegistrationRequestStatus.ONGOING);
 
         }
     }
